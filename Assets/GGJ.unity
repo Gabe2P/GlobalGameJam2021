@@ -213,36 +213,6 @@ Transform:
   m_Father: {fileID: 1239279801}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &282058948 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8688292798906143110, guid: 1b21f50281c5c9b47921b448a164a122,
-    type: 3}
-  m_PrefabInstance: {fileID: 970546699}
-  m_PrefabAsset: {fileID: 0}
---- !u!233 &282058949
-HingeJoint2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 282058948}
-  m_Enabled: 1
-  serializedVersion: 4
-  m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 0}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_AutoConfigureConnectedAnchor: 1
-  m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 14.566412, y: -8.649231}
-  m_UseMotor: 0
-  m_Motor:
-    m_MotorSpeed: 0
-    m_MaximumMotorForce: 10000
-  m_UseLimits: 0
-  m_AngleLimits:
-    m_LowerAngle: 0
-    m_UpperAngle: 359
 --- !u!1 &344097325
 GameObject:
   m_ObjectHideFlags: 0
@@ -1455,6 +1425,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1588769534652684211, guid: 1b21f50281c5c9b47921b448a164a122,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: 14.566412
+      objectReference: {fileID: 0}
+    - target: {fileID: 1588769534652684211, guid: 1b21f50281c5c9b47921b448a164a122,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: -8.649231
+      objectReference: {fileID: 0}
     - target: {fileID: 8688292798906143109, guid: 1b21f50281c5c9b47921b448a164a122,
         type: 3}
       propertyPath: m_RootOrder
