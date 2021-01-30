@@ -16,6 +16,17 @@ public class DeliverySpot : MonoBehaviour
 
     private float CountdownTimer;
 
+    [SerializeField]
+    float AscensionSpeed = .5f;
+    [SerializeField]
+    float AscensionHeight = 30;
+
+    GameObject DeliveredItem;
+
+
+
+    bool FDelivering = false;
+
 
 
 
@@ -29,6 +40,10 @@ public class DeliverySpot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(FDelivering)
+        {
+            DeliverItem();
+        }
         
     }
 
@@ -51,17 +66,32 @@ public class DeliverySpot : MonoBehaviour
             if(requestedItem.GetComponent<ItemController>().Item == item.GetComponent<ItemController>().Item)
             {
                 Debug.Log("Gimme Banana");
-                RequestedItems.Remove(requestedItem);
-                Destroy(item);
+                //RequestedItems.Remove(requestedItem);
+                DeliveredItem = item;
+                DeliveredItem.GetComponent<ItemController>().Release(new Vector2(0,0));
+                DeliveredItem.GetComponent<ItemController>().enabled = false;
+                DeliveredItem.GetComponentInChildren<PolygonCollider2D>().enabled = false;
+                FDelivering = true;
 
                 break;
             }
         } 
-        if(RequestedItems.Count <= 0)
+        
+    }
+
+    public void DeliverItem()
+    {
+        DeliveredItem.transform.position = new Vector3(DeliveredItem.transform.position.x, DeliveredItem.transform.position.y + AscensionSpeed * Time.deltaTime, DeliveredItem.transform.position.z);
+
+        if (DeliveredItem.transform.position.y >= transform.position.y + AscensionHeight)
         {
+            FDelivering = false;
+            RequestedItems.Remove(DeliveredItem);
+            Destroy(DeliveredItem);
             CompleteDelivery();
         }
     }
+
 
     public void StartDelivery(List<GameObject> items)
     {
@@ -72,8 +102,11 @@ public class DeliverySpot : MonoBehaviour
 
     private void CompleteDelivery()
     {
-        RequestManager.Instance.CompleteDelivery(this);
-        ActiveDelivery = false;
+        if (RequestedItems.Count <= 0)
+        {
+            RequestManager.Instance.CompleteDelivery(this);
+            ActiveDelivery = false;
+        }
     }
 
         
