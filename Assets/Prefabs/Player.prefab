@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 927004760423553004}
-  - component: {fileID: 2026579159298346136}
+  - component: {fileID: 595165337776412223}
   m_Layer: 3
   m_Name: Colliders
   m_TagString: Untagged
@@ -25,14 +25,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 927004760423553005}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.079, y: -0.309, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 927004760860714871}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &2026579159298346136
-PolygonCollider2D:
+--- !u!61 &595165337776412223
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -44,7 +44,7 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.013245404, y: 0.11920786}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -54,32 +54,9 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.0072705746, y: 0.51521313}
-      - {x: -0.63884294, y: 0.5084672}
-      - {x: -0.9245222, y: 0.70663726}
-      - {x: -1.1650485, y: 1.2810016}
-      - {x: -1.313237, y: 0.80666685}
-      - {x: -1.2674018, y: 0.19349232}
-      - {x: -1.0215511, y: -0.078703344}
-      - {x: -1.4262371, y: -0.2198734}
-      - {x: -1.990431, y: -1.4459478}
-      - {x: -1.8702598, y: -1.9439653}
-      - {x: -1.3982406, y: -1.9796436}
-      - {x: -0.8784552, y: -1.7694956}
-      - {x: -0.88798314, y: -2.075567}
-      - {x: 0.6291897, y: -2.0763292}
-      - {x: 0.62298656, y: -1.7221249}
-      - {x: 0.9258363, y: -1.9982126}
-      - {x: 1.4132106, y: -1.9945108}
-      - {x: 1.5887353, y: -1.7871294}
-      - {x: 1.119691, y: -0.4463359}
-      - {x: 0.8197415, y: 0.012646884}
-      - {x: 0.99500084, y: 0.29066247}
-      - {x: 1.0067728, y: 1.316973}
-      - {x: 0.7416229, y: 0.7761414}
-      - {x: 0.38012743, y: 0.5341722}
+  serializedVersion: 2
+  m_Size: {x: 1.220755, y: 1.6622653}
+  m_EdgeRadius: 0
 --- !u!1 &927004760860714826
 GameObject:
   m_ObjectHideFlags: 0
