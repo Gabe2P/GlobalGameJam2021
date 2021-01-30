@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEve
 {
     public event Action<string, object> CallAnimationTrigger;
     public event Action<string, int> CallAnimationState;
-    public event Action<string> CallAudio;
+    public event Action<string, float> CallAudio;
 
     [SerializeField] private InputController input = null;
     [SerializeField] private CharacterType character = null;
@@ -94,32 +94,28 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEve
         }
         else
         {
+            CallAudio?.Invoke("Walking", .1f);
             if (lookDirection.y > 0 && lookDirection.x < .5 && lookDirection.x > -.5)
             {
                 CallAnimationState?.Invoke("WalkingBackwards", 0);
-                CallAudio?.Invoke("Walking");
             }
             if (lookDirection.y < 0 && lookDirection.x < .5 && lookDirection.x > -.5)
             {
                 CallAnimationState?.Invoke("WalkingForward", 0);
-                CallAudio?.Invoke("Walking");
             }
             if (lookDirection.x < 0 && lookDirection.y < .5 && lookDirection.y > -.5)
             {
                 CallAnimationState?.Invoke("WalkingLeft", 0);
-                CallAudio?.Invoke("Walking");
             }
             if (lookDirection.x > 0 && lookDirection.y < .5 && lookDirection.y > -.5)
             {
                 CallAnimationState?.Invoke("WalkingRight", 0);
-                CallAudio?.Invoke("Walking");
             }
         }
     }
 
     public void OnMovement(Vector2 direction)
     {
-        Debug.Log("I am being called.");
         currentInput = direction;
         if (direction != Vector2.zero && !isDashing)
         {
@@ -129,7 +125,6 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEve
 
     public void OnGrab()
     {
-        Debug.Log("I am being called.");
         if (character == null)
         {
             return;
@@ -137,14 +132,13 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEve
         RaycastHit2D hitInfo = Physics2D.Raycast(this.transform.position, lookDirection.normalized, character.GetInteractionRange(), interactionLayer);
         if (hitInfo)
         {
-            Debug.Log("Found Item.");
             IGrabbable item = hitInfo.transform.gameObject.GetComponentInParent<IGrabbable>();
             if (item != null)
             {
                 //currentGrabItem = item.Grab(this.gameObject);
                 currentGrabItem = item.Grab(motor, hitInfo.point);
                 CallAnimationTrigger?.Invoke("", null);
-                CallAudio?.Invoke("Grab");
+                CallAudio?.Invoke("Grab", 0f);
             }
         }
     }
@@ -155,8 +149,8 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEve
         {
             //currentGrabItem.Release(this.gameObject);
             currentGrabItem.Release(currentInput);
+            currentGrabItem = null;
             CallAnimationTrigger?.Invoke("", null);
-            CallAudio?.Invoke("Release");
         }
     }
 

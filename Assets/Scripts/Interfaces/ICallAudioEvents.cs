@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface ICallAudioEvents
 {
-    public event Action<string> CallAudio;
+    public event Action<string, float> CallAudio;
 }
