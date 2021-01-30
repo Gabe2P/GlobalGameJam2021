@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemDropManager : MonoBehaviour
 {
-
+    private RequestManager myRequestManger;
     private static ItemDropManager _Instance;
 
     public static ItemDropManager Instance { get { return _Instance; } }
@@ -27,7 +27,7 @@ public class ItemDropManager : MonoBehaviour
 
     public float TimeUntilNextDrop;
 
-    bool flag = false;
+    
 
 
     private void Awake()
@@ -47,6 +47,7 @@ public class ItemDropManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        myRequestManger = RequestManager.Instance;
         TimeUntilNextDrop = 0;
     }
 
@@ -68,10 +69,16 @@ public class ItemDropManager : MonoBehaviour
         temp.AddComponent<PolygonCollider2D>();
         temp.AddComponent<Rigidbody2D>();
         temp.GetComponent<Rigidbody2D>().gravityScale = 0;
+        temp.GetComponent<Rigidbody2D>().drag = item.Drag;
+        temp.GetComponent<Rigidbody2D>().angularDrag = item.Drag;
+        temp.AddComponent<ItemController>();
+        
 
         temp.transform.position = aPosition.position;
         temp.transform.position = new Vector3(temp.transform.position.x, temp.transform.position.y, transform.position.z);
-        flag = true;
+
+        myRequestManger.AddItemToRequestManager(temp);
+        
     }
 
     private void DropTime()

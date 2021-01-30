@@ -16,6 +16,8 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents
     private Rigidbody2D motor = null;
     private Joint2D joint = null;
 
+    public ItemType Item { get { return itemType; } }
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -45,6 +47,15 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents
         {
             motor.velocity = Vector3.zero;
         }
+    }
+
+    public void SetItem(ItemType myItem)
+    {
+        itemType = myItem;
+    }
+        private void OnApplicationPause(bool pause)
+    {
+
     }
 
     //public IGrabbable Grab(object source)
