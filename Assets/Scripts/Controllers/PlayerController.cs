@@ -1,23 +1,27 @@
 //Written By Gabriel Tupy 1-29-2021
 
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, ICallAnimateEvents
 {
+    public event Action<string, object> CallAnimationTrigger;
+
     [SerializeField] private InputController input = null;
     [SerializeField] private CharacterType character = null;
     private Rigidbody2D motor = null;
     private Joint2D joint = null;
     [SerializeField] private LayerMask interactionLayer;
+    private Vector2 lookDirection = Vector2.zero;
     private Vector2 currentInput = Vector2.zero;
     private float timer = 0f;
     [SerializeField] private float currentSpeed = 0f;
     [SerializeField] private float currentMoveSpeed = 0f;
     [SerializeField] private float currentDashLength = 0f;
     [SerializeField] private float currentDashSpeed = 0f;
+    private bool isDashing = false;
     private IGrabbable currentGrabItem = null;
 
     private void Awake()
@@ -36,14 +40,16 @@ public class PlayerController : MonoBehaviour
     {
         if (character != null)
         {
-            Debug.DrawRay(this.transform.position, this.transform.position + new Vector3(currentInput.x, currentInput.y, this.transform.position.z) * character.GetInteractionRange(), Color.red);
+            Debug.DrawRay(this.transform.position, lookDirection.normalized * character.GetInteractionRange(), Color.red);
         }
         if (timer <= 0f)
         {
             currentSpeed = currentMoveSpeed;
+            isDashing = false;
         }
         else
         {
+            isDashing = true;
             currentSpeed = currentDashSpeed;
             timer -= Time.deltaTime;
         }
@@ -51,13 +57,25 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        motor.AddForce((currentInput) * currentSpeed * Time.deltaTime, ForceMode2D.Impulse);
+        if (isDashing)
+        {
+            motor.MovePosition(motor.position + (lookDirection.normalized * currentSpeed * Time.deltaTime));
+        }
+        else
+        {
+            motor.MovePosition(motor.position + (currentInput.normalized * currentSpeed * Time.deltaTime));
+        }
     }
 
     public void OnMovement(Vector2 direction)
     {
         Debug.Log("I am being called.");
         currentInput = direction;
+        if (direction != Vector2.zero && !isDashing)
+        {
+            lookDirection = direction;
+        }
+        CallAnimationTrigger?.Invoke("", null);
     }
 
     public void OnGrab()
@@ -67,13 +85,16 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        RaycastHit2D hitInfo = Physics2D.Raycast(this.transform.position, this.transform.position + new Vector3(currentInput.x, currentInput.y, this.transform.position.z), character.GetInteractionRange(), interactionLayer);
+        RaycastHit2D hitInfo = Physics2D.Raycast(this.transform.position, lookDirection.normalized, character.GetInteractionRange(), interactionLayer);
         if (hitInfo)
         {
-            IGrabbable item = hitInfo.transform.gameObject.GetComponent<IGrabbable>();
+            Debug.Log("Found Item.");
+            IGrabbable item = hitInfo.transform.gameObject.GetComponentInParent<IGrabbable>();
             if (item != null)
             {
-                currentGrabItem = item.Grab(this.gameObject);
+                //currentGrabItem = item.Grab(this.gameObject);
+                currentGrabItem = item.Grab(motor);
+                CallAnimationTrigger?.Invoke("", null);
             }
         }
     }
@@ -82,7 +103,9 @@ public class PlayerController : MonoBehaviour
     {
         if (currentGrabItem != null)
         {
-            currentGrabItem.Release(this.gameObject);
+            //currentGrabItem.Release(this.gameObject);
+            currentGrabItem.Release(currentInput);
+            CallAnimationTrigger?.Invoke("", null);
         }
     }
 
@@ -90,6 +113,7 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("I am being called.");
         timer = currentDashLength;
+        CallAnimationTrigger?.Invoke("", null);
     }
 
     private void SubscribeToInput(InputController reference)

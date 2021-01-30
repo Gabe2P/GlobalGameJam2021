@@ -13,7 +13,7 @@ public class ItemDropManager : MonoBehaviour
     private List<Transform> dropPoints = new List<Transform> { };
 
     [SerializeField]
-    private List<BaseItem> ItemsToBeDropped = new List<BaseItem>();
+    private List<ItemType> ItemsToBeDropped = new List<ItemType>();
 
     [SerializeField]
     float TimeBetweenDrops = 30f;
@@ -59,7 +59,7 @@ public class ItemDropManager : MonoBehaviour
         }
     }
 
-    private void DropItem(Transform aPosition,BaseItem item)
+    private void DropItem(Transform aPosition,ItemType item)
     {
         GameObject temp = new GameObject(item.name);
         temp.AddComponent(typeof(SpriteRenderer));
