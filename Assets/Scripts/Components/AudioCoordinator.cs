@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AuidoCoordinator : MonoBehaviour
+public class AudioCoordinator : MonoBehaviour
 {
     [SerializeField] private AudioManager am = null;
     [SerializeField] private GameObject referenceObject = null;
     private ICallAudioEvents reference = null;
+    private float timer = 0f;
 
     private void Start()
     {
@@ -21,11 +22,22 @@ public class AuidoCoordinator : MonoBehaviour
         }
     }
 
-    private void CallAudio(string command)
+    private void CallAudio(string command, float delay)
     {
         if (am != null)
         {
-            am.Play(command);
+            if (!am.IsPlayingSound(command))
+            {
+                if (timer >= delay)
+                {
+                    am.Play(command);
+                    timer = 0;
+                }
+                else
+                {
+                    timer += Time.deltaTime;
+                }
+            }
         }
     }
 

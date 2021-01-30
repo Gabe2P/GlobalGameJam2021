@@ -12,7 +12,7 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICa
     public event Action OnRelease;
     public event Action<string, object> CallAnimationTrigger;
     public event Action<string, int> CallAnimationState;
-    public event Action<string> CallAudio;
+    public event Action<string, float> CallAudio;
 
     [SerializeField] private ItemType itemType = null;
     private Rigidbody2D motor = null;
