@@ -6,12 +6,13 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(HingeJoint2D))]
-public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents
+public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICallAudioEvents
 {
     public event Action OnGrab;
     public event Action OnRelease;
     public event Action<string, object> CallAnimationTrigger;
     public event Action<string, int> CallAnimationState;
+    public event Action<string> CallAudio;
 
     [SerializeField] private ItemType itemType = null;
     private Rigidbody2D motor = null;

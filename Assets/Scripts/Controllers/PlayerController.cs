@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerController : MonoBehaviour, ICallAnimateEvents
+public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEvents
 {
     public event Action<string, object> CallAnimationTrigger;
     public event Action<string, int> CallAnimationState;
+    public event Action<string> CallAudio;
 
     [SerializeField] private InputController input = null;
     [SerializeField] private CharacterType character = null;
@@ -72,29 +73,22 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents
 
     private void DetermineAnimationCall()
     {
-        //Debug.Log(currentInput);
-        //Debug.Log(lookDirection);
-
         if (currentInput == Vector2.zero)
         {
             if (lookDirection.y > 0 && lookDirection.x < .5 && lookDirection.x > -.5)
             {
-                //CallAnimationTrigger?.Invoke("isIdle", null);
                 CallAnimationState?.Invoke("IdleBackwards", 0);
             }
             if (lookDirection.y < 0 && lookDirection.x < .5 && lookDirection.x > -.5)
             {
-                //CallAnimationTrigger?.Invoke("isIdle", null);
                 CallAnimationState?.Invoke("IdleForward", 0);
             }
             if (lookDirection.x < 0 && lookDirection.y < .5 && lookDirection.y > -.5)
             {
-                //CallAnimationTrigger?.Invoke("isIdle", null);
                 CallAnimationState?.Invoke("IdleLeft", 0);
             }
             if (lookDirection.x > 0 && lookDirection.y < .5 && lookDirection.y > -.5)
             {
-                //CallAnimationTrigger?.Invoke("isIdle", null);
                 CallAnimationState?.Invoke("IdleRight", 0);
             }
         }
@@ -102,23 +96,23 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents
         {
             if (lookDirection.y > 0 && lookDirection.x < .5 && lookDirection.x > -.5)
             {
-                //CallAnimationTrigger?.Invoke("isMovingDown", true);
                 CallAnimationState?.Invoke("WalkingBackwards", 0);
+                CallAudio?.Invoke("Walking");
             }
             if (lookDirection.y < 0 && lookDirection.x < .5 && lookDirection.x > -.5)
             {
-                //CallAnimationTrigger?.Invoke("isMovingUp", true);
                 CallAnimationState?.Invoke("WalkingForward", 0);
+                CallAudio?.Invoke("Walking");
             }
             if (lookDirection.x < 0 && lookDirection.y < .5 && lookDirection.y > -.5)
             {
-                //CallAnimationTrigger?.Invoke("isMovingLeft", true);
                 CallAnimationState?.Invoke("WalkingLeft", 0);
+                CallAudio?.Invoke("Walking");
             }
             if (lookDirection.x > 0 && lookDirection.y < .5 && lookDirection.y > -.5)
             {
-                //CallAnimationTrigger?.Invoke("isMovingRight", true);
                 CallAnimationState?.Invoke("WalkingRight", 0);
+                CallAudio?.Invoke("Walking");
             }
         }
     }
@@ -150,6 +144,7 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents
                 //currentGrabItem = item.Grab(this.gameObject);
                 currentGrabItem = item.Grab(motor, hitInfo.point);
                 CallAnimationTrigger?.Invoke("", null);
+                CallAudio?.Invoke("Grab");
             }
         }
     }
@@ -161,6 +156,7 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents
             //currentGrabItem.Release(this.gameObject);
             currentGrabItem.Release(currentInput);
             CallAnimationTrigger?.Invoke("", null);
+            CallAudio?.Invoke("Release");
         }
     }
 
