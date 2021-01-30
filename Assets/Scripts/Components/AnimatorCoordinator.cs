@@ -59,11 +59,21 @@ public class AnimatorCoordinator : MonoBehaviour
         }
     }
 
+    private void CallAnimationState(string command, int layer)
+    {
+        if (command == "")
+        {
+            return;
+        }
+        anim.Play(command, layer);
+    }
+
     private void SubscribeToICallAnimateEvents(ICallAnimateEvents reference)
     {
         if (reference != null)
         {
             reference.CallAnimationTrigger += CallAnimationTrigger;
+            reference.CallAnimationState += CallAnimationState;
         }
     }
 
@@ -72,6 +82,7 @@ public class AnimatorCoordinator : MonoBehaviour
         if (reference != null)
         {
             reference.CallAnimationTrigger -= CallAnimationTrigger;
+            reference.CallAnimationState -= CallAnimationState;
         }
     }
 

@@ -8,6 +8,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour, ICallAnimateEvents
 {
     public event Action<string, object> CallAnimationTrigger;
+    public event Action<string, int> CallAnimationState;
 
     [SerializeField] private InputController input = null;
     [SerializeField] private CharacterType character = null;
@@ -60,10 +61,65 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents
         if (isDashing)
         {
             motor.MovePosition(motor.position + (lookDirection.normalized * currentSpeed * Time.deltaTime));
+            DetermineAnimationCall();
         }
         else
         {
             motor.MovePosition(motor.position + (currentInput.normalized * currentSpeed * Time.deltaTime));
+            DetermineAnimationCall();
+        }
+    }
+
+    private void DetermineAnimationCall()
+    {
+        //Debug.Log(currentInput);
+        //Debug.Log(lookDirection);
+
+        if (currentInput == Vector2.zero)
+        {
+            if (lookDirection.y > 0 && lookDirection.x < .5 && lookDirection.x > -.5)
+            {
+                //CallAnimationTrigger?.Invoke("isIdle", null);
+                CallAnimationState?.Invoke("IdleBackwards", 0);
+            }
+            if (lookDirection.y < 0 && lookDirection.x < .5 && lookDirection.x > -.5)
+            {
+                //CallAnimationTrigger?.Invoke("isIdle", null);
+                CallAnimationState?.Invoke("IdleForward", 0);
+            }
+            if (lookDirection.x < 0 && lookDirection.y < .5 && lookDirection.y > -.5)
+            {
+                //CallAnimationTrigger?.Invoke("isIdle", null);
+                CallAnimationState?.Invoke("IdleLeft", 0);
+            }
+            if (lookDirection.x > 0 && lookDirection.y < .5 && lookDirection.y > -.5)
+            {
+                //CallAnimationTrigger?.Invoke("isIdle", null);
+                CallAnimationState?.Invoke("IdleRight", 0);
+            }
+        }
+        else
+        {
+            if (lookDirection.y > 0 && lookDirection.x < .5 && lookDirection.x > -.5)
+            {
+                //CallAnimationTrigger?.Invoke("isMovingDown", true);
+                CallAnimationState?.Invoke("WalkingBackwards", 0);
+            }
+            if (lookDirection.y < 0 && lookDirection.x < .5 && lookDirection.x > -.5)
+            {
+                //CallAnimationTrigger?.Invoke("isMovingUp", true);
+                CallAnimationState?.Invoke("WalkingForward", 0);
+            }
+            if (lookDirection.x < 0 && lookDirection.y < .5 && lookDirection.y > -.5)
+            {
+                //CallAnimationTrigger?.Invoke("isMovingLeft", true);
+                CallAnimationState?.Invoke("WalkingLeft", 0);
+            }
+            if (lookDirection.x > 0 && lookDirection.y < .5 && lookDirection.y > -.5)
+            {
+                //CallAnimationTrigger?.Invoke("isMovingRight", true);
+                CallAnimationState?.Invoke("WalkingRight", 0);
+            }
         }
     }
 
@@ -75,7 +131,6 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents
         {
             lookDirection = direction;
         }
-        CallAnimationTrigger?.Invoke("", null);
     }
 
     public void OnGrab()
