@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Banana
   m_EditorClassIdentifier: 
   Name: Banana
+  Mass: 1
+  Drag: 1
   sprite: {fileID: 21300000, guid: 671aa68dcd1b0c749940c59d9ea2fa05, type: 3}

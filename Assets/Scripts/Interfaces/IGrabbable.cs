@@ -1,12 +1,14 @@
 //Written By Gabriel Tupy 1-29-2021
 
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public interface IGrabbable
 {
-    IGrabbable Grab(object source);
+    public event Action OnGrab;
+    public event Action OnRelease;
 
-    void Release(object source);
+    IGrabbable Grab(Rigidbody2D player);
+
+    void Release(Vector2 input);
 }
