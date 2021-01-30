@@ -38,23 +38,29 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICa
 
     public IGrabbable Grab(Rigidbody2D player, Vector2 contactPoint)
     {
-        joint.anchor = joint.transform.InverseTransformPoint(contactPoint);
-        joint.connectedAnchor = player.transform.InverseTransformPoint(contactPoint); ;
-        joint.enabled = true;
-        joint.connectedBody = player;
-        OnGrab?.Invoke();
+        if (joint != null)
+        {
+            joint.anchor = joint.transform.InverseTransformPoint(contactPoint);
+            joint.connectedAnchor = player.transform.InverseTransformPoint(contactPoint); ;
+            joint.enabled = true;
+            joint.connectedBody = player;
+            OnGrab?.Invoke();
+        }
         return this;
     }
 
     public void Release(Vector2 input)
     {
-        joint.connectedBody = null;
-        joint.enabled = false;
-        if (input == Vector2.zero)
+        if (joint != null)
         {
-            motor.velocity = Vector3.zero;
+            joint.connectedBody = null;
+            joint.enabled = false;
+            if (input == Vector2.zero)
+            {
+                motor.velocity = Vector3.zero;
+            }
+            OnRelease?.Invoke();
         }
-        OnRelease?.Invoke();
     }
 
     public void SetItem(ItemType myItem , Rigidbody2D body, HingeJoint2D hinge)
