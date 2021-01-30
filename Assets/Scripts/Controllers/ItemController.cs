@@ -54,7 +54,6 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents
         }
         OnRelease?.Invoke();
     }
-<<<<<<< HEAD
 
     public void SetItem(ItemType myItem)
     {
@@ -64,27 +63,4 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents
     {
 
     }
-
-    //public IGrabbable Grab(object source)
-    //{
-    //    joint.enabled = true;
-    //    GameObject obj = source as GameObject;
-    //    if (obj != null)
-    //    {
-    //        Rigidbody2D rb = obj.GetComponent<Rigidbody2D>();
-    //        if (rb != null)
-    //        {
-    //            joint.connectedBody = rb;
-    //        }
-    //    }
-    //    return this;
-    //}
-
-    //public void Release(object source)
-    //{
-    //    joint.connectedBody = null;
-    //    joint.enabled = false;
-    //}
-=======
->>>>>>> 56ba50a13934f926823b109ed55a5e841c9cc048
 }
