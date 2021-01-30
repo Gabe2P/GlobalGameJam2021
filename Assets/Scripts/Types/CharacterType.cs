@@ -6,7 +6,9 @@ using UnityEngine;
 public class CharacterType : ScriptableObject
 {
     [SerializeField] private string characterName = "";
+    [SerializeField] private float interactionRange = 1f;
     [SerializeField] private float moveSpeed = 1f;
+    [SerializeField] private float dashLength = .25f;
     [SerializeField] private float dashSpeed = 2f;
 
     public string GetCharacterName()
@@ -14,9 +16,19 @@ public class CharacterType : ScriptableObject
         return characterName;
     }
 
+    public float GetInteractionRange()
+    {
+        return interactionRange;
+    }
+
     public float GetMoveSpeed()
     {
         return moveSpeed;
+    }
+
+    public float GetDashLength()
+    {
+        return dashLength;
     }
 
     public float GetDashSpeed()

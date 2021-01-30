@@ -1,18 +1,12 @@
+//Written By Gabriel Tupy 1-29-2021
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ISelectable : MonoBehaviour
+public interface ISelectable
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    object Select(object source);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    object Unselect(object source);
 }
