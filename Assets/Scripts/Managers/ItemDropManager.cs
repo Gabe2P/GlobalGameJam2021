@@ -71,7 +71,9 @@ public class ItemDropManager : MonoBehaviour
         temp.GetComponent<Rigidbody2D>().gravityScale = 0;
         temp.GetComponent<Rigidbody2D>().drag = item.Drag;
         temp.GetComponent<Rigidbody2D>().angularDrag = item.Drag;
+        temp.AddComponent<HingeJoint2D>();
         temp.AddComponent<ItemController>();
+        temp.GetComponent<ItemController>().SetItem(item, temp.GetComponent<Rigidbody2D>(), temp.GetComponent<HingeJoint2D>());
         
 
         temp.transform.position = aPosition.position;

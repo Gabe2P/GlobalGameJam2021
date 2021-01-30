@@ -34,12 +34,14 @@ public class DeliverySpot : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("pizza");
         if(collision.GetComponent<ItemController>() != null && ActiveDelivery)
         {
             Debug.Log("Gimme Banana");
             CheckItems(collision.GetComponent<ItemController>().Item);
         }
     }
+   
 
     private void CheckItems(ItemType item)
     {
