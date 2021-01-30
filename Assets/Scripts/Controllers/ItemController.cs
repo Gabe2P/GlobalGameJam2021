@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(Joint2D))]
+[RequireComponent(typeof(HingeJoint2D))]
 public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents
 {
     public event Action OnGrab;
@@ -14,7 +14,10 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents
 
     [SerializeField] private ItemType itemType = null;
     private Rigidbody2D motor = null;
-    private Joint2D joint = null;
+    private HingeJoint2D joint = null;
+
+    private Vector2 force = Vector2.zero;
+    private Vector2 contactPoint = Vector2.zero;
 
     public ItemType Item { get { return itemType; } }
 
@@ -22,7 +25,7 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents
     void Awake()
     {
         motor = GetComponent<Rigidbody2D>();
-        joint = GetComponent<Joint2D>();
+        joint = GetComponent<HingeJoint2D>();
 
         if (itemType != null)
         {
@@ -31,10 +34,13 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents
         }
     }
 
-    public IGrabbable Grab(Rigidbody2D player)
+    public IGrabbable Grab(Rigidbody2D player, Vector2 contactPoint)
     {
+        joint.anchor = joint.transform.InverseTransformPoint(contactPoint);
+        joint.connectedAnchor = player.transform.InverseTransformPoint(contactPoint); ;
         joint.enabled = true;
         joint.connectedBody = player;
+        OnGrab?.Invoke();
         return this;
     }
 
@@ -42,12 +48,13 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents
     {
         joint.connectedBody = null;
         joint.enabled = false;
-
         if (input == Vector2.zero)
         {
             motor.velocity = Vector3.zero;
         }
+        OnRelease?.Invoke();
     }
+<<<<<<< HEAD
 
     public void SetItem(ItemType myItem)
     {
@@ -78,4 +85,6 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents
     //    joint.connectedBody = null;
     //    joint.enabled = false;
     //}
+=======
+>>>>>>> 56ba50a13934f926823b109ed55a5e841c9cc048
 }

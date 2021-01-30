@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents
             if (item != null)
             {
                 //currentGrabItem = item.Grab(this.gameObject);
-                currentGrabItem = item.Grab(motor);
+                currentGrabItem = item.Grab(motor, hitInfo.point);
                 CallAnimationTrigger?.Invoke("", null);
             }
         }
