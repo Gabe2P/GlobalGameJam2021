@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(Joint2D))]
+[RequireComponent(typeof(HingeJoint2D))]
 public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents
 {
     public event Action OnGrab;
@@ -14,7 +14,7 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents
 
     [SerializeField] private ItemType itemType = null;
     private Rigidbody2D motor = null;
-    private Joint2D joint = null;
+    private HingeJoint2D joint = null;
 
     private Vector2 force = Vector2.zero;
     private Vector2 contactPoint = Vector2.zero;
@@ -23,7 +23,7 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents
     void Awake()
     {
         motor = GetComponent<Rigidbody2D>();
-        joint = GetComponent<Joint2D>();
+        joint = GetComponent<HingeJoint2D>();
 
         if (itemType != null)
         {
@@ -34,12 +34,8 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents
 
     public IGrabbable Grab(Rigidbody2D player, Vector2 contactPoint)
     {
-        HingeJoint2D hinge = joint as HingeJoint2D;
-        if (hinge != null)
-        {
-            hinge.anchor = hinge.transform.InverseTransformPoint(contactPoint);
-            hinge.connectedAnchor = player.transform.InverseTransformPoint(contactPoint); ;
-        }
+        joint.anchor = joint.transform.InverseTransformPoint(contactPoint);
+        joint.connectedAnchor = player.transform.InverseTransformPoint(contactPoint); ;
         joint.enabled = true;
         joint.connectedBody = player;
         OnGrab?.Invoke();
@@ -50,32 +46,10 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents
     {
         joint.connectedBody = null;
         joint.enabled = false;
-
         if (input == Vector2.zero)
         {
             motor.velocity = Vector3.zero;
         }
         OnRelease?.Invoke();
     }
-
-    //public IGrabbable Grab(object source)
-    //{
-    //    joint.enabled = true;
-    //    GameObject obj = source as GameObject;
-    //    if (obj != null)
-    //    {
-    //        Rigidbody2D rb = obj.GetComponent<Rigidbody2D>();
-    //        if (rb != null)
-    //        {
-    //            joint.connectedBody = rb;
-    //        }
-    //    }
-    //    return this;
-    //}
-
-    //public void Release(object source)
-    //{
-    //    joint.connectedBody = null;
-    //    joint.enabled = false;
-    //}
 }
