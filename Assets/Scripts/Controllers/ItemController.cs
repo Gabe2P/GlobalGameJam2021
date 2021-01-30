@@ -16,6 +16,9 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents
     private Rigidbody2D motor = null;
     private Joint2D joint = null;
 
+    private Vector2 force = Vector2.zero;
+    private Vector2 contactPoint = Vector2.zero;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -29,10 +32,17 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents
         }
     }
 
-    public IGrabbable Grab(Rigidbody2D player)
+    public IGrabbable Grab(Rigidbody2D player, Vector2 contactPoint)
     {
+        HingeJoint2D hinge = joint as HingeJoint2D;
+        if (hinge != null)
+        {
+            hinge.anchor = hinge.transform.InverseTransformPoint(contactPoint);
+            hinge.connectedAnchor = player.transform.InverseTransformPoint(contactPoint); ;
+        }
         joint.enabled = true;
         joint.connectedBody = player;
+        OnGrab?.Invoke();
         return this;
     }
 
@@ -45,6 +55,7 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents
         {
             motor.velocity = Vector3.zero;
         }
+        OnRelease?.Invoke();
     }
 
     //public IGrabbable Grab(object source)

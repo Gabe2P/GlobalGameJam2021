@@ -176,7 +176,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 18.99114
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -206,6 +206,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &463440575 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8688292798906143110, guid: 1b21f50281c5c9b47921b448a164a122,
+    type: 3}
+  m_PrefabInstance: {fileID: 8688292798538399735}
+  m_PrefabAsset: {fileID: 0}
+--- !u!233 &463440577
+HingeJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 463440575}
+  m_Enabled: 0
+  serializedVersion: 4
+  m_EnableCollision: 1
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 2.0138626, y: -1.1752326}
+  m_ConnectedAnchor: {x: 1.7230692, y: -0.68066585}
+  m_UseMotor: 0
+  m_Motor:
+    m_MotorSpeed: 0
+    m_MaximumMotorForce: 10000
+  m_UseLimits: 0
+  m_AngleLimits:
+    m_LowerAngle: 0
+    m_UpperAngle: 359
 --- !u!114 &1222919360 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7146189771464793561, guid: 2cfb7d54e678dd94c9c8fcddd9033ddd,
@@ -444,6 +474,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8688292798906143106, guid: 1b21f50281c5c9b47921b448a164a122,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8688292798906143106, guid: 1b21f50281c5c9b47921b448a164a122,
+        type: 3}
+      propertyPath: m_AngularDrag
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8688292798906143109, guid: 1b21f50281c5c9b47921b448a164a122,
         type: 3}
       propertyPath: m_RootOrder
@@ -452,12 +492,12 @@ PrefabInstance:
     - target: {fileID: 8688292798906143109, guid: 1b21f50281c5c9b47921b448a164a122,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -2.91
       objectReference: {fileID: 0}
     - target: {fileID: 8688292798906143109, guid: 1b21f50281c5c9b47921b448a164a122,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.44
       objectReference: {fileID: 0}
     - target: {fileID: 8688292798906143109, guid: 1b21f50281c5c9b47921b448a164a122,
         type: 3}
@@ -504,5 +544,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Banana
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8688292798906143107, guid: 1b21f50281c5c9b47921b448a164a122, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1b21f50281c5c9b47921b448a164a122, type: 3}
