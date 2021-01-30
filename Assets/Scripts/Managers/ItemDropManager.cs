@@ -79,7 +79,8 @@ public class ItemDropManager : MonoBehaviour
         
 
         temp.transform.position = aPosition.position;
-        temp.transform.position = new Vector3(temp.transform.position.x, temp.transform.position.y, transform.position.z);
+        temp.transform.position = new Vector3(temp.transform.position.x, temp.transform.position.y + 20, transform.position.z);
+        temp.GetComponent<ItemController>().StartDrop(aPosition);
 
         myRequestManger.AddItemToRequestManager(temp);
         
@@ -101,6 +102,8 @@ public class ItemDropManager : MonoBehaviour
         }
         TimeUntilNextDrop = Time.time + TimeBetweenDrops;
     }
+
+     
 
 
 

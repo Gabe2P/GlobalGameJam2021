@@ -21,6 +21,19 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICa
     private Vector2 force = Vector2.zero;
     private Vector2 contactPoint = Vector2.zero;
 
+    
+    private bool Dropping = false;
+    private bool Bouncing = false;
+    Transform DropTarget;
+    [SerializeField]
+    float BounceHeight;
+    [SerializeField]
+    float BounceRate;
+    float BounceLimit;
+    [SerializeField]
+    float BounceCount;
+
+
     public ItemType Item { get { return itemType; } }
 
     // Start is called before the first frame update
@@ -33,6 +46,18 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICa
         {
             motor.mass = itemType.Mass;
             motor.drag = itemType.Drag;
+            motor.angularDrag = itemType.Drag;
+        }
+    }
+    private void Update()
+    {
+        if(Dropping)
+        {
+            DropBoi();
+        }
+        if(Bouncing)
+        {
+            ItemBounce();
         }
     }
 
@@ -57,12 +82,59 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICa
         OnRelease?.Invoke();
     }
 
-    public void SetItem(ItemType myItem , Rigidbody2D body, HingeJoint2D hinge)
+    public void StartDrop(Transform targetSpot)
     {
-        itemType = myItem;
-        joint = hinge;
-        motor = body;
+        Dropping = true;
+        DropTarget = targetSpot;
+
+        BounceHeight = .2f;
+        BounceRate = 10;
+        BounceLimit = 6;
+
+        GetComponentInChildren<PolygonCollider2D>().enabled = false;
     }
+    public void DropBoi()
+    {
+        transform.position = new Vector3(transform.position.x, transform.position.y - 30 * Time.deltaTime, transform.position.z);
+
+
+        if (transform.position.y - DropTarget.position.y < .1f)
+        {
+            Dropping = false;
+            Bouncing = true;
+            
+            
+        }
+    }
+    public void ItemBounce()
+    {
+        float BouncePosition = Mathf.Sin(Time.time * 30 ) * BounceHeight;
+
+         transform.position = new Vector3(transform.position.x,Mathf.Clamp(transform.position.y + BouncePosition,DropTarget.position.y,DropTarget.position.y +1), transform.position.z);
+
+        if(transform.position.y <= DropTarget.position.y)
+        {
+            BounceCount++;
+            BounceHeight = BounceHeight * .85f;
+            BounceRate = BounceRate * .85f;
+        }
+
+        if(BounceCount >= BounceLimit)
+        {
+            Bouncing = false;
+            GetComponentInChildren<PolygonCollider2D>().enabled = true;
+
+
+        }
+       
+    }
+
+    //public void SetItem(ItemType myItem , Rigidbody2D body, HingeJoint2D hinge)
+    //{
+    //    itemType = myItem;
+    //    joint = hinge;
+    //    motor = body;
+    //}
         private void OnApplicationPause(bool pause)
     {
 
