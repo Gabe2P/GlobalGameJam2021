@@ -5,4 +5,5 @@ using System;
 public interface ICallAnimateEvents
 {
     public event Action<string, object> CallAnimationTrigger;
+    public event Action<string, int> CallAnimationState;
 }
