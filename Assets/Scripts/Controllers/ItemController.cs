@@ -24,11 +24,9 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICa
     
     private bool Dropping = false;
     private bool Bouncing = false;
+    private bool BounceUp = true;
     Transform DropTarget;
-    [SerializeField]
-    float BounceHeight;
-    [SerializeField]
-    float BounceRate;
+    
     float BounceLimit;
     [SerializeField]
     float BounceCount;
@@ -54,10 +52,6 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICa
         if(Dropping)
         {
             DropBoi();
-        }
-        if(Bouncing)
-        {
-            ItemBounce();
         }
     }
 
@@ -93,9 +87,7 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICa
         Dropping = true;
         DropTarget = targetSpot;
 
-        BounceHeight = .2f;
-        BounceRate = 10;
-        BounceLimit = 6;
+        
 
         GetComponentInChildren<PolygonCollider2D>().enabled = false;
     }
@@ -107,30 +99,41 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICa
         if (transform.position.y - DropTarget.position.y < .1f)
         {
             Dropping = false;
-            Bouncing = true;
-            
-            
+            GetComponentInChildren<PolygonCollider2D>().enabled = true;
+
         }
     }
+
+
     public void ItemBounce()
     {
-        float BouncePosition = Mathf.Sin(Time.time * 30 ) * BounceHeight;
-
-         transform.position = new Vector3(transform.position.x,Mathf.Clamp(transform.position.y + BouncePosition,DropTarget.position.y,DropTarget.position.y +1), transform.position.z);
-
-        if(transform.position.y <= DropTarget.position.y)
+        float BouncePosition;
+        //float BouncePosition = Mathf.Sin(Time.time * 30 ) * BounceHeight;
+        if (BounceUp)
         {
-            BounceCount++;
-            BounceHeight = BounceHeight * .85f;
-            BounceRate = BounceRate * .85f;
+            BouncePosition = Mathf.PingPong(Time.time, .1f);
         }
+        else
+        {
+            BouncePosition = Mathf.PingPong(Time.time, .1f) * -1f;
+        }
+
+         transform.position = new Vector3(transform.position.x,transform.position.y + BouncePosition, transform.position.z);
+
+        //if(transform.position.y <= DropTarget.position.y)
+        //{
+        //    BounceCount++;
+        //    BounceHeight = BounceHeight * .85f;
+        //    BounceRate = BounceRate * .85f;
+        //}
 
         if(BounceCount >= BounceLimit)
         {
             Bouncing = false;
             GetComponentInChildren<PolygonCollider2D>().enabled = true;
 
-
+            
+            
         }
        
     }
