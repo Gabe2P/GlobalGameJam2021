@@ -56,9 +56,11 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents
         OnRelease?.Invoke();
     }
 
-    public void SetItem(ItemType myItem)
+    public void SetItem(ItemType myItem , Rigidbody2D body, HingeJoint2D hinge)
     {
         itemType = myItem;
+        joint = hinge;
+        motor = body;
     }
         private void OnApplicationPause(bool pause)
     {

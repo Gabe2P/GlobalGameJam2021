@@ -13,7 +13,7 @@ public class ItemDropManager : MonoBehaviour
     private List<Transform> dropPoints = new List<Transform> { };
 
     [SerializeField]
-    private List<ItemType> ItemsToBeDropped = new List<ItemType>();
+    private List<GameObject> ItemsToBeDropped = new List<GameObject>();
 
     [SerializeField]
     float TimeBetweenDrops = 30f;
@@ -60,18 +60,22 @@ public class ItemDropManager : MonoBehaviour
         }
     }
 
-    private void DropItem(Transform aPosition,ItemType item)
+    private void DropItem(Transform aPosition,GameObject item)
     {
-        GameObject temp = new GameObject(item.name);
-        temp.AddComponent(typeof(SpriteRenderer));
-        temp.GetComponent<SpriteRenderer>().sprite = item.sprite;
-        //temp.GetComponent<SpriteRenderer>().color = Color.red;
-        temp.AddComponent<PolygonCollider2D>();
-        temp.AddComponent<Rigidbody2D>();
-        temp.GetComponent<Rigidbody2D>().gravityScale = 0;
-        temp.GetComponent<Rigidbody2D>().drag = item.Drag;
-        temp.GetComponent<Rigidbody2D>().angularDrag = item.Drag;
-        temp.AddComponent<ItemController>();
+        //GameObject temp = new GameObject(item.name);
+        //temp.AddComponent(typeof(SpriteRenderer));
+        //temp.GetComponent<SpriteRenderer>().sprite = item.sprite;
+        ////temp.GetComponent<SpriteRenderer>().color = Color.red;
+        //temp.AddComponent<PolygonCollider2D>();
+        //temp.AddComponent<Rigidbody2D>();
+        //temp.GetComponent<Rigidbody2D>().gravityScale = 0;
+        //temp.GetComponent<Rigidbody2D>().drag = item.Drag;
+        //temp.GetComponent<Rigidbody2D>().angularDrag = item.Drag;
+        //temp.AddComponent<HingeJoint2D>();
+        //temp.AddComponent<ItemController>();
+        //temp.GetComponent<ItemController>().SetItem(item, temp.GetComponent<Rigidbody2D>(), temp.GetComponent<HingeJoint2D>());
+
+        GameObject temp = Instantiate(item);
         
 
         temp.transform.position = aPosition.position;
@@ -87,7 +91,7 @@ public class ItemDropManager : MonoBehaviour
         
         for(int i = 0; i < DropAmmount ; i ++)
         {
-            Debug.Log("pizza");
+            
             DropItem(dropPoints[Random.Range(0, dropPoints.Count - 1)], ItemsToBeDropped[Random.Range(0, ItemsToBeDropped.Count)]);
         }
 
