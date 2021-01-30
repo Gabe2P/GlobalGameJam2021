@@ -11,6 +11,7 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents
     public event Action OnGrab;
     public event Action OnRelease;
     public event Action<string, object> CallAnimationTrigger;
+    public event Action<string, int> CallAnimationState;
 
     [SerializeField] private ItemType itemType = null;
     private Rigidbody2D motor = null;

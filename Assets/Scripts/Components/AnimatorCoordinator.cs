@@ -59,6 +59,15 @@ public class AnimatorCoordinator : MonoBehaviour
         }
     }
 
+    private void CallAnimationState(string command, int layer)
+    {
+        if (command == "")
+        {
+            return;
+        }
+        anim.Play(command, Mathf.Abs(layer));
+    }
+
     private void SubscribeToICallAnimateEvents(ICallAnimateEvents reference)
     {
         if (reference != null)
