@@ -72,42 +72,53 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents
 
     private void DetermineAnimationCall()
     {
+        //Debug.Log(currentInput);
+        //Debug.Log(lookDirection);
+
         if (currentInput == Vector2.zero)
         {
             if (lookDirection.y > 0 && lookDirection.x < .5 && lookDirection.x > -.5)
             {
-                CallAnimationTrigger?.Invoke("isIdle", null);
+                //CallAnimationTrigger?.Invoke("isIdle", null);
+                CallAnimationState?.Invoke("IdleBackwards", 0);
             }
             if (lookDirection.y < 0 && lookDirection.x < .5 && lookDirection.x > -.5)
             {
-                CallAnimationTrigger?.Invoke("isIdle", null);
+                //CallAnimationTrigger?.Invoke("isIdle", null);
+                CallAnimationState?.Invoke("IdleForward", 0);
             }
             if (lookDirection.x < 0 && lookDirection.y < .5 && lookDirection.y > -.5)
             {
-                CallAnimationTrigger?.Invoke("isIdle", null);
+                //CallAnimationTrigger?.Invoke("isIdle", null);
+                CallAnimationState?.Invoke("IdleLeft", 0);
             }
             if (lookDirection.x > 0 && lookDirection.y < .5 && lookDirection.y > -.5)
             {
-                CallAnimationTrigger?.Invoke("isIdle", null);
+                //CallAnimationTrigger?.Invoke("isIdle", null);
+                CallAnimationState?.Invoke("IdleRight", 0);
             }
         }
         else
         {
             if (lookDirection.y > 0 && lookDirection.x < .5 && lookDirection.x > -.5)
             {
-                CallAnimationTrigger?.Invoke("isMovingDown", true);
+                //CallAnimationTrigger?.Invoke("isMovingDown", true);
+                CallAnimationState?.Invoke("WalkingBackwards", 0);
             }
             if (lookDirection.y < 0 && lookDirection.x < .5 && lookDirection.x > -.5)
             {
-                CallAnimationTrigger?.Invoke("isMovingUp", true);
+                //CallAnimationTrigger?.Invoke("isMovingUp", true);
+                CallAnimationState?.Invoke("WalkingForward", 0);
             }
             if (lookDirection.x < 0 && lookDirection.y < .5 && lookDirection.y > -.5)
             {
-                CallAnimationTrigger?.Invoke("isMovingLeft", true);
+                //CallAnimationTrigger?.Invoke("isMovingLeft", true);
+                CallAnimationState?.Invoke("WalkingLeft", 0);
             }
             if (lookDirection.x > 0 && lookDirection.y < .5 && lookDirection.y > -.5)
             {
-                CallAnimationTrigger?.Invoke("isMovingRight", true);
+                //CallAnimationTrigger?.Invoke("isMovingRight", true);
+                CallAnimationState?.Invoke("WalkingRight", 0);
             }
         }
     }

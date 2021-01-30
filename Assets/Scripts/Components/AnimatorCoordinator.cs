@@ -65,7 +65,7 @@ public class AnimatorCoordinator : MonoBehaviour
         {
             return;
         }
-        anim.Play(command, Mathf.Abs(layer));
+        anim.Play(command, layer);
     }
 
     private void SubscribeToICallAnimateEvents(ICallAnimateEvents reference)
@@ -73,6 +73,7 @@ public class AnimatorCoordinator : MonoBehaviour
         if (reference != null)
         {
             reference.CallAnimationTrigger += CallAnimationTrigger;
+            reference.CallAnimationState += CallAnimationState;
         }
     }
 
@@ -81,6 +82,7 @@ public class AnimatorCoordinator : MonoBehaviour
         if (reference != null)
         {
             reference.CallAnimationTrigger -= CallAnimationTrigger;
+            reference.CallAnimationState -= CallAnimationState;
         }
     }
 
