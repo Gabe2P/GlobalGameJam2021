@@ -25,7 +25,7 @@ public class ItemDropManager : MonoBehaviour
 
     int DropIncreaseCounter = 0;
 
-    float TimeUntilNextDrop;
+    public float TimeUntilNextDrop;
 
     bool flag = false;
 
@@ -64,12 +64,13 @@ public class ItemDropManager : MonoBehaviour
         GameObject temp = new GameObject(item.name);
         temp.AddComponent(typeof(SpriteRenderer));
         temp.GetComponent<SpriteRenderer>().sprite = item.sprite;
-        temp.GetComponent<SpriteRenderer>().color = Color.red;
+        //temp.GetComponent<SpriteRenderer>().color = Color.red;
         temp.AddComponent<PolygonCollider2D>();
         temp.AddComponent<Rigidbody2D>();
         temp.GetComponent<Rigidbody2D>().gravityScale = 0;
 
         temp.transform.position = aPosition.position;
+        temp.transform.position = new Vector3(temp.transform.position.x, temp.transform.position.y, transform.position.z);
         flag = true;
     }
 
@@ -80,7 +81,7 @@ public class ItemDropManager : MonoBehaviour
         for(int i = 0; i < DropAmmount ; i ++)
         {
             Debug.Log("pizza");
-            DropItem(dropPoints[Random.Range(0, dropPoints.Count - 1)], ItemsToBeDropped[Random.Range(0, ItemsToBeDropped.Count - 1)]);
+            DropItem(dropPoints[Random.Range(0, dropPoints.Count - 1)], ItemsToBeDropped[Random.Range(0, ItemsToBeDropped.Count)]);
         }
 
         if(DropIncreaseCounter % 5 == 0)
