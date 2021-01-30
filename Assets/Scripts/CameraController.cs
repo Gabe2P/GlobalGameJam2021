@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour
     }
     private void Update()
     {
-        MoveWithTarget();
+        
         //LookAtTarget();
 
         //if(Input.GetKeyDown(KeyCode.G) && !smoothRotating)
@@ -37,6 +37,11 @@ public class CameraController : MonoBehaviour
         
 
 
+    }
+
+    private void LateUpdate()
+    {
+        MoveWithTarget();
     }
 
     //move the camera to the target position + current camera offset

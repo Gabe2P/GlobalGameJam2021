@@ -34,23 +34,25 @@ public class DeliverySpot : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("pizza");
-        if(collision.GetComponent<ItemController>() != null && ActiveDelivery)
+        
+        if(collision.GetComponentInParent<ItemController>() != null)
         {
-            Debug.Log("Gimme Banana");
-            CheckItems(collision.GetComponent<ItemController>().Item);
+
+            
+            CheckItems(collision.transform.parent.gameObject);
         }
     }
    
 
-    private void CheckItems(ItemType item)
+    private void CheckItems(GameObject item)
     {
         foreach(GameObject requestedItem in RequestedItems)
         {
-            if(requestedItem.GetComponent<ItemType>() == item)
+            if(requestedItem.GetComponent<ItemController>().Item == item.GetComponent<ItemController>().Item)
             {
+                Debug.Log("Gimme Banana");
                 RequestedItems.Remove(requestedItem);
-                Destroy(requestedItem);
+                Destroy(item);
 
                 break;
             }

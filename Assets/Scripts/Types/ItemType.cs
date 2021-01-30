@@ -9,6 +9,7 @@ public class ItemType : ScriptableObject
 {
 
     public string Name;
+    public int ID;
 
     public float Mass;
     public float Drag;
