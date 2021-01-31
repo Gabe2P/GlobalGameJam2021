@@ -29,7 +29,7 @@ public class DropPoint : MonoBehaviour
 
     public void EXPLOSION()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 2f);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 3f);
         foreach (Collider2D hit in colliders)
         {
             Rigidbody2D rb = hit.GetComponentInParent<Rigidbody2D>();

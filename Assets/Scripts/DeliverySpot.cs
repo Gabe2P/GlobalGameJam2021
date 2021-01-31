@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 public class DeliverySpot : MonoBehaviour
 {
@@ -39,6 +40,7 @@ public class DeliverySpot : MonoBehaviour
 
     bool FDelivering = false;
     bool HandMoving = false;
+    bool DeliveryMissed = true;
 
     Collider2D[] itemSpotCheck;
 
@@ -66,15 +68,16 @@ public class DeliverySpot : MonoBehaviour
         {
             DeliverItem();
         }
+
+        
+        CountdownTimer = Time.time;
         
 
-        CountdownTimer = Time.time;
-
-        if(CountdownTimer >= TimeToDeliveryEnd)
+        if(CountdownTimer >= TimeToDeliveryEnd && ActiveDelivery)
         {
             itemSpotCheck = null;
             Debug.Log("Times Up");
-            itemSpotCheck = Physics2D.OverlapCircleAll(transform.position, 1);
+            itemSpotCheck = Physics2D.OverlapCircleAll(transform.position, .5f);
             if (itemSpotCheck.Length > 0) 
             {
 
@@ -86,7 +89,7 @@ public class DeliverySpot : MonoBehaviour
                 }
                 else
                 {
-                    FailedDelivery();
+                    //FailedDelivery();
                     itemSpotCheck = null;
                 }
             }
@@ -94,6 +97,10 @@ public class DeliverySpot : MonoBehaviour
             {
                 FailedDelivery();
                 itemSpotCheck = null;
+            }
+            if(CountdownTimer >= TimeToDeliverItems + 2f && ActiveDelivery)
+            {
+                FailedDelivery();
             }
         }
         
@@ -130,22 +137,29 @@ public class DeliverySpot : MonoBehaviour
 
     private void RightDelivery(GameObject item)
     {
+        
         CheckItems(item);
         GameManager.Instance.AddScore(item.GetComponent<ItemController>().Item.Points);
     }
 
     private void FailedDelivery()
     {
+        if (RequestedItems!= null && !HandMoving)
+        {
+            GameManager.Instance.MissedDelivery();
+        }
 
         FDelivering = false;
         RequestedItems = null;
         SpotLight.SetActive(false);
+        
         CompleteDelivery();
-        GameManager.Instance.MissedDelivery();
+        
     }
 
     private void WrongItem(GameObject item)
     {
+        
         if (item.GetComponent<ItemController>() != null)
         {
             GameManager.Instance.AddScore((int)Mathf.Floor((item.GetComponent<ItemController>().Item.Points / 2)));
@@ -240,6 +254,7 @@ public class DeliverySpot : MonoBehaviour
     {
         ActiveDelivery = true;
         RequestedItems = items;
+        TimeToDeliveryEnd = Time.time + TimeToDeliverItems;
         SpotLight.SetActive(true);
 
     }
