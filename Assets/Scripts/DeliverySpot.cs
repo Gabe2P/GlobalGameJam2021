@@ -12,14 +12,19 @@ public class DeliverySpot : MonoBehaviour
     public bool ActiveDelivery = false;
 
     [SerializeField]
-    float TimeToDeliverItems;
+    float TimeToDeliverItems =60f;
 
+    [SerializeField]
+    private float TimeToDeliveryEnd;
+    [SerializeField]
     private float CountdownTimer;
 
     [SerializeField]
     float AscensionSpeed = .5f;
     [SerializeField]
     float AscensionHeight = 30;
+
+
 
     GameObject DeliveredItem;
 
@@ -35,7 +40,7 @@ public class DeliverySpot : MonoBehaviour
     bool FDelivering = false;
     bool HandMoving = false;
 
-
+    Collider2D[] itemSpotCheck;
 
 
 
@@ -44,6 +49,7 @@ public class DeliverySpot : MonoBehaviour
     {
         RequestManager.Instance.AvailableDeliveryPoints.Add(this);
         SpotLight.SetActive(false);
+        TimeToDeliveryEnd = Time.time + TimeToDeliverItems;
     }
 
     // Update is called once per frame
@@ -58,8 +64,39 @@ public class DeliverySpot : MonoBehaviour
             DeliverItem();
         }
         
+
+        CountdownTimer = Time.time;
+
+        if(CountdownTimer >= TimeToDeliveryEnd)
+        {
+            itemSpotCheck = null;
+            Debug.Log("Times Up");
+            itemSpotCheck = Physics2D.OverlapCircleAll(transform.position, 1);
+            if (itemSpotCheck.Length > 0) 
+            {
+
+                if (itemSpotCheck[0].GetComponentInParent<ItemController>() != null)
+                {
+                    Debug.Log("item in spotlight");
+                    WrongItem(itemSpotCheck[0].transform.parent.gameObject);
+                    itemSpotCheck = null;
+                }
+                else
+                {
+                    FailedDelivery();
+                    itemSpotCheck = null;
+                }
+            }
+            else
+            {
+                FailedDelivery();
+                itemSpotCheck = null;
+            }
+        }
+        
         
     }
+    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -68,10 +105,63 @@ public class DeliverySpot : MonoBehaviour
         {
 
             
-            CheckItems(collision.transform.parent.gameObject);
+            RightDelivery(collision.transform.parent.gameObject);
+        }
+
+        if (collision.GetComponentInParent<ItemController>() != null && ActiveDelivery && CountdownTimer >= TimeToDeliveryEnd)
+        {
+            WrongItem(collision.transform.parent.gameObject);
         }
     }
-   
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.GetComponentInParent<ItemController>() != null && ActiveDelivery && CountdownTimer >= TimeToDeliveryEnd)
+        {
+            WrongItem(collision.transform.parent.gameObject);
+        }
+        //if(collision == null && CountdownTimer >= TimeToDeliveryEnd)
+        //{
+        //    FailedDelivery();
+        //}    
+    }
+
+    private void RightDelivery(GameObject item)
+    {
+        CheckItems(item);
+    }
+
+    private void FailedDelivery()
+    {
+
+        FDelivering = false;
+        RequestedItems = null;
+        SpotLight.SetActive(false);
+        CompleteDelivery();
+    }
+
+    private void WrongItem(GameObject item)
+    {
+        if (item.GetComponent<ItemController>() != null)
+        {
+            Debug.Log("Gimme Banana");
+            RequestedItems = null;
+            DeliveredItem = item;
+            DeliveredItem.GetComponent<ItemController>().Release(new Vector2(0, 0));
+            DeliveredItem.GetComponent<ItemController>().enabled = false;
+            DeliveredItem.GetComponentInChildren<PolygonCollider2D>().enabled = false;
+            HandMoving = true;
+
+            if (ActiveHand == null)
+            {
+                ActiveHand = Instantiate(Hand);
+                ActiveHand.transform.position = new Vector3(DeliveredItem.transform.position.x, DeliveredItem.transform.position.y + AscensionHeight, DeliveredItem.transform.position.z - 1);
+            }
+
+
+
+
+        }
+    }
 
     private void CheckItems(GameObject item)
     {
@@ -149,7 +239,7 @@ public class DeliverySpot : MonoBehaviour
 
     private void CompleteDelivery()
     {
-        
+            TimeToDeliveryEnd = Time.time + TimeToDeliverItems;
             RequestManager.Instance.CompleteDelivery(this);
             ActiveDelivery = false;
         
