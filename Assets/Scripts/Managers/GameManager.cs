@@ -53,6 +53,25 @@ public class GameManager : MonoBehaviour, ICallAudioEvents
 
     private void Update()
     {
+        if (SceneManager.GetActiveScene().name.Equals("MainMenu"))
+        {
+            PlayAudio?.Invoke("ThemeSong", 0f);
+            StopAudio?.Invoke("ExpositionSong");
+            StopAudio?.Invoke("GameSong");
+        }
+        if (SceneManager.GetActiveScene().name.Equals("Exposition"))
+        {
+            PlayAudio?.Invoke("ExpositionSong", 0f);
+            StopAudio?.Invoke("ThemeSong");
+            StopAudio?.Invoke("GameSong");
+        }
+        if (SceneManager.GetActiveScene().name.Equals("GGJ"))
+        {
+            PlayAudio?.Invoke("GameSong", 0f);
+            StopAudio?.Invoke("ExpositionSong");
+            StopAudio?.Invoke("ThemeSong");
+        }
+
         if (input == null)
         {
             input = FindObjectOfType<InputController>();
