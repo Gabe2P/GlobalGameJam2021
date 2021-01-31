@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEve
     private bool canDash = true;
     private bool isDashing = false;
     private IGrabbable currentGrabItem = null;
+    private ISelectable selectedItem = null;
+    private ISelectable prevSelectedItem = null;
 
     private void Awake()
     {
@@ -70,6 +72,10 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEve
         {
             resetDashTimer -= Time.deltaTime;
         }
+        if (character != null && currentGrabItem == null)
+        {
+            SelectItems();
+        }
     }
 
     private void FixedUpdate()
@@ -84,6 +90,28 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEve
         }
         DetermineAnimationCall();
         DetermineAudioCall();
+    }
+
+    private void SelectItems()
+    {
+        Ray ray = new Ray(this.transform.position, lookDirection.normalized * character.GetInteractionRange());
+        RaycastHit2D hitBox = Physics2D.CircleCast(ray.GetPoint(character.GetInteractionRange() / 2), character.GetInteractionRange() / 2, lookDirection.normalized, character.GetInteractionRange(), interactionLayer);
+        if (hitBox)
+        {
+            ISelectable target = hitBox.collider.gameObject.GetComponentInParent<ISelectable>();
+            if (target != null)
+            {
+                selectedItem = target.Select(this.gameObject);
+                if (prevSelectedItem != selectedItem)
+                {
+                    if (prevSelectedItem != null)
+                    {
+                        prevSelectedItem.Unselect(this.gameObject);
+                    }
+                    prevSelectedItem = selectedItem;
+                }
+            }
+        }
     }
 
     private void DetermineAnimationCall()
@@ -169,7 +197,6 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEve
                 IGrabbable item = hitInfo.transform.gameObject.GetComponentInParent<IGrabbable>();
                 if (item != null)
                 {
-                    //currentGrabItem = item.Grab(this.gameObject);
                     currentGrabItem = item.Grab(motor, hitInfo.point);
                     CallAnimationTrigger?.Invoke("", null);
                     CallAudio?.Invoke("Grab", 0f);
@@ -182,7 +209,6 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEve
     {
         if (currentGrabItem != null)
         {
-            //currentGrabItem.Release(this.gameObject);
             currentGrabItem.Release(currentInput);
             currentGrabItem = null;
             CallAnimationTrigger?.Invoke("", null);

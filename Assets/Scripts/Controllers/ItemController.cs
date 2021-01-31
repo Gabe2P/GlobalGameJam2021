@@ -6,7 +6,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(HingeJoint2D))]
-public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICallAudioEvents
+public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICallAudioEvents, ISelectable
 {
     public event Action OnGrab;
     public event Action OnRelease;
@@ -15,11 +15,12 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICa
     public event Action<string, float> CallAudio;
 
     [SerializeField] private ItemType itemType = null;
+    [SerializeField] private GameObject Highlight = null;
+
     private Rigidbody2D motor = null;
     private HingeJoint2D joint = null;
 
     private bool isGrabbed = false;
-
     
     private bool Dropping = false;
     private bool Bouncing = false;
@@ -69,7 +70,14 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICa
         {
             if (motor.velocity.magnitude >= .1f)
             {
-                CallAudio?.Invoke("Drag", 0f);
+                if (isGrabbed)
+                {
+                    CallAudio?.Invoke("Drag", 0f);
+                }
+                else
+                {
+                    CallAudio?.Invoke("Pushed", 0f);
+                }
             }
             else
             {
@@ -167,7 +175,25 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICa
     //    joint = hinge;
     //    motor = body;
     //}
-        private void OnApplicationPause(bool pause)
+
+    public event Action OnSelect;
+    public event Action OnUnselect;
+
+    public ISelectable Select(object source)
+    {
+        Highlight.SetActive(true);
+        OnSelect?.Invoke();
+        return this;
+    }
+
+    public ISelectable Unselect(object source)
+    {
+        Highlight.SetActive(false);
+        OnUnselect?.Invoke();
+        return this;
+    }
+
+    private void OnApplicationPause(bool pause)
     {
 
     }
