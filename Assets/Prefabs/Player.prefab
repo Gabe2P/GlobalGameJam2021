@@ -70,7 +70,7 @@ GameObject:
   - component: {fileID: 927004760860714870}
   m_Layer: 3
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -132,6 +132,7 @@ MonoBehaviour:
   currentSpeed: 0
   currentMoveSpeed: 0
   currentDashLength: 0
+  currentDashResetLength: 0
   currentDashSpeed: 0
 --- !u!1 &927004761292581605
 GameObject:

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ICallParticleEvents
+public interface ICallVFXEvents
 {
-    public event Action<Vector2> CallParticles;
+    public event Action<Vector2, Quaternion, float> CallVFX;
 }

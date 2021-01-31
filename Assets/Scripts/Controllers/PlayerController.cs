@@ -5,12 +5,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEvents, ICallParticleEvents
+public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEvents, ICallVFXEvents
 {
     public event Action<string, object> CallAnimationTrigger;
     public event Action<string, int> CallAnimationState;
     public event Action<string, float> CallAudio;
-    public event Action<Vector2> CallParticles;
+    public event Action<Vector2, Quaternion, float> CallVFX;
 
     [SerializeField] private InputController input = null;
     [SerializeField] private CharacterType character = null;
@@ -117,22 +117,18 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEve
             if (lookDirection.y > 0 && lookDirection.x < .5 && lookDirection.x > -.5)
             {
                 CallAnimationState?.Invoke("WalkingBackwards", 0);
-                CallParticles?.Invoke(this.transform.position);
             }
             if (lookDirection.y < 0 && lookDirection.x < .5 && lookDirection.x > -.5)
             {
                 CallAnimationState?.Invoke("WalkingForward", 0);
-                CallParticles?.Invoke(this.transform.position);
             }
             if (lookDirection.x < 0 && lookDirection.y < .5 && lookDirection.y > -.5)
             {
                 CallAnimationState?.Invoke("WalkingLeft", 0);
-                CallParticles?.Invoke(this.transform.position);
             }
             if (lookDirection.x > 0 && lookDirection.y < .5 && lookDirection.y > -.5)
             {
                 CallAnimationState?.Invoke("WalkingRight", 0);
-                CallParticles?.Invoke(this.transform.position);
             }
         }
     }
@@ -142,6 +138,7 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEve
         if (isDashing)
         {
             CallAudio?.Invoke("Dash", 0f);
+            CallVFX?.Invoke(this.transform.position - new Vector3(0, 1, 0), Quaternion.identity, .1f);
         }
         else
         {
