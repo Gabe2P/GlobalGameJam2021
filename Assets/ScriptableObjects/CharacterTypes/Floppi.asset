@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Floppi
   m_EditorClassIdentifier: 
   characterName: Floppi
-  interactionRange: 5
+  interactionRange: 1.5
   moveSpeed: 10
   dashLength: 0.25
+  dashResetLength: 0.3
   dashSpeed: 20

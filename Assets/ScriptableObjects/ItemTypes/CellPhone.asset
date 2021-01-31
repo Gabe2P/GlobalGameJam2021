@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a18ae9602c97b840ae60535e9fd4766, type: 3}
+  m_Name: CellPhone
+  m_EditorClassIdentifier: 
+  Name: Cell Phone
+  ID: 1
+  Mass: 10
+  Drag: 5
+  sprite: {fileID: 8808868513341885110, guid: 6e9e4f4bb6978b54199f3445b2bf459e, type: 3}
+  prefab: {fileID: 5591237741712086022, guid: c11a828ca986da643ad06db15f23e8ef, type: 3}

@@ -9,6 +9,7 @@ public class CharacterType : ScriptableObject
     [SerializeField] private float interactionRange = 1f;
     [SerializeField] private float moveSpeed = 1f;
     [SerializeField] private float dashLength = .25f;
+    [SerializeField] private float dashResetLength = .1f;
     [SerializeField] private float dashSpeed = 2f;
 
     public string GetCharacterName()
@@ -29,6 +30,11 @@ public class CharacterType : ScriptableObject
     public float GetDashLength()
     {
         return dashLength;
+    }
+
+    public float GetDashResetLength()
+    {
+        return dashResetLength;
     }
 
     public float GetDashSpeed()

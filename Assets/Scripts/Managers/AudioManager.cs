@@ -8,11 +8,20 @@ public class AudioManager : MonoBehaviour
     //Manages all of the different audio files
 
     public Sound[] sounds;
-
     public static AudioManager instance;
 
     private void Awake()
     {
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+
         foreach (Sound s in sounds)
         {
             s.source = gameObject.AddComponent<AudioSource>();
