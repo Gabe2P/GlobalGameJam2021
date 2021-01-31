@@ -228,9 +228,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -815840133
+  m_SortingLayer: -1
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7922435198963833554, guid: 6e9e4f4bb6978b54199f3445b2bf459e,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -259,7 +259,14 @@ MonoBehaviour:
   - name: Drag
     mixer: {fileID: 0}
     clip: {fileID: 8300000, guid: bf86ec7d57f507e45aff645f9bed0d6d, type: 3}
-    volume: 1
+    volume: 0.558
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Pushed
+    mixer: {fileID: 0}
+    clip: {fileID: 8300000, guid: bf86ec7d57f507e45aff645f9bed0d6d, type: 3}
+    volume: 0.587
     pitch: 1
     loop: 0
     source: {fileID: 0}
