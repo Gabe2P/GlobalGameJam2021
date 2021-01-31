@@ -1,43 +1,43 @@
 fileFormatVersion: 2
-guid: 6e9e4f4bb6978b54199f3445b2bf459e
+guid: d72a5a59119274749b45acee7355cc44
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8823992338322106570
-    second: PickUpItems_0
+      213: 8925478025530941503
+    second: WhiteOutItems_0
   - first:
-      213: -3513728768787513819
-    second: PickUpItems_1
+      213: 8406823789156945243
+    second: WhiteOutItems_1
   - first:
-      213: 7913613714071976896
-    second: PickUpItems_2
+      213: 4115924340182900474
+    second: WhiteOutItems_2
   - first:
-      213: -2097293949004138934
-    second: PickUpItems_3
+      213: 5054630150286437965
+    second: WhiteOutItems_3
   - first:
-      213: 7922435198963833554
-    second: PickUpItems_4
+      213: 1491875593899831865
+    second: WhiteOutItems_4
   - first:
-      213: 6145738755657814612
-    second: PickUpItems_5
+      213: 8026836730790565950
+    second: WhiteOutItems_5
   - first:
-      213: -71049509392150212
-    second: PickUpItems_7
+      213: -8121167889256886206
+    second: WhiteOutItems_6
   - first:
-      213: -1188810203413717732
-    second: PickUpItems_8
+      213: -1324018437787017864
+    second: WhiteOutItems_7
   - first:
-      213: -1099315211231301535
-    second: PickUpItems_9
+      213: -2965938006249770632
+    second: WhiteOutItems_8
   - first:
-      213: 8808868513341885110
-    second: PickUpItems_10
+      213: -3211838542902747512
+    second: WhiteOutItems_9
   - first:
-      213: -7661038868430207115
-    second: PickUpItems_6
+      213: 9071851211689629978
+    second: WhiteOutItems_10
   - first:
-      213: -4895114111229574594
-    second: PickUpItems_11
+      213: 6545305607926266942
+    second: WhiteOutItems_11
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -104,7 +104,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -116,7 +116,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -128,7 +128,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -139,7 +139,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PickUpItems_0
+      name: WhiteOutItems_0
       rect:
         serializedVersion: 2
         x: 49
@@ -153,14 +153,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ac8257ab74e157a70800000000000000
-      internalID: 8823992338322106570
+      spriteID: f30a35a99faaddb70800000000000000
+      internalID: 8925478025530941503
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PickUpItems_1
+      name: WhiteOutItems_1
       rect:
         serializedVersion: 2
         x: 977
@@ -174,14 +174,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 52e79532d4abc3fc0800000000000000
-      internalID: -3513728768787513819
+      spriteID: b5dc00ae1b90ba470800000000000000
+      internalID: 8406823789156945243
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PickUpItems_2
+      name: WhiteOutItems_2
       rect:
         serializedVersion: 2
         x: 1820
@@ -195,14 +195,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0cb7becaebdc2dd60800000000000000
-      internalID: 7913613714071976896
+      spriteID: afe5cfa5163be1930800000000000000
+      internalID: 4115924340182900474
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PickUpItems_3
+      name: WhiteOutItems_3
       rect:
         serializedVersion: 2
         x: 317
@@ -216,14 +216,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a46380ce34ae4e2e0800000000000000
-      internalID: -2097293949004138934
+      spriteID: d4e6dc25757a52640800000000000000
+      internalID: 5054630150286437965
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PickUpItems_4
+      name: WhiteOutItems_4
       rect:
         serializedVersion: 2
         x: 1124
@@ -237,14 +237,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2da5a4ea6d422fd60800000000000000
-      internalID: 7922435198963833554
+      spriteID: 9327977c2f434b410800000000000000
+      internalID: 1491875593899831865
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PickUpItems_5
+      name: WhiteOutItems_5
       rect:
         serializedVersion: 2
         x: 1900
@@ -258,14 +258,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 452d55536dc0a4550800000000000000
-      internalID: 6145738755657814612
+      spriteID: e3854d88a7d056f60800000000000000
+      internalID: 8026836730790565950
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PickUpItems_7
+      name: WhiteOutItems_7
       rect:
         serializedVersion: 2
         x: 259
@@ -279,14 +279,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c31173ff8d4930ff0800000000000000
-      internalID: -71049509392150212
+      spriteID: 87d13abee3420ade0800000000000000
+      internalID: -1324018437787017864
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PickUpItems_8
+      name: WhiteOutItems_8
       rect:
         serializedVersion: 2
         x: 1021
@@ -300,14 +300,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c1d5a282b6f708fe0800000000000000
-      internalID: -1188810203413717732
+      spriteID: 871f6a7f81fd6d6d0800000000000000
+      internalID: -2965938006249770632
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PickUpItems_9
+      name: WhiteOutItems_9
       rect:
         serializedVersion: 2
         x: 492
@@ -321,14 +321,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 160ff5ac3a27eb0f0800000000000000
-      internalID: -1099315211231301535
+      spriteID: 88e9f5ebcd14d63d0800000000000000
+      internalID: -3211838542902747512
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PickUpItems_10
+      name: WhiteOutItems_10
       rect:
         serializedVersion: 2
         x: 964
@@ -342,8 +342,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6bacdd2dd336f3a70800000000000000
-      internalID: 8808868513341885110
+      spriteID: a1915ffbc90b5ed70800000000000000
+      internalID: 9071851211689629978
       vertices: []
       indices: 
       edges: []
