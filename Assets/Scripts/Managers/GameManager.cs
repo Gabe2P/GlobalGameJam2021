@@ -2,11 +2,14 @@
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private InputController input = null;
     [SerializeField] private GameObject pauseScreen;
+    [SerializeField] private GameObject gameOverScreen;
+    [SerializeField] private Text scoreTextBox;
 
     private void Update()
     {
@@ -15,6 +18,13 @@ public class GameManager : MonoBehaviour
             input = FindObjectOfType<InputController>();
             SubscribeToInput(input);
         }
+    }
+
+    public void GameOver(float score)
+    {
+        scoreTextBox.text = score.ToString();
+        gameOverScreen.SetActive(true);
+        Time.timeScale = 0;
     }
 
     public void ResumeGame()
