@@ -7,8 +7,6 @@ public class DeliverySpot : MonoBehaviour
     [SerializeField]
     public GameObject RequestedItems;
 
-
-
     public bool ActiveDelivery = false;
 
     [SerializeField]
@@ -41,7 +39,6 @@ public class DeliverySpot : MonoBehaviour
     bool HandMoving = false;
 
     Collider2D[] itemSpotCheck;
-
 
 
     // Start is called before the first frame update

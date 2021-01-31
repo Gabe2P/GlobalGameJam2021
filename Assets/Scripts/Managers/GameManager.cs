@@ -12,6 +12,27 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject pauseScreen;
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private Text scoreTextBox;
+    public List<DeliverySpot> deliverySpots = new List<DeliverySpot>();
+    public GameObject markerPrefab;
+    public Camera UICamera;
+    private bool markersCreated = false;
+
+    private void CreateMarkers()
+    {
+        if (markerPrefab != null)
+        {
+            foreach (DeliverySpot d in deliverySpots)
+            {
+                GameObject clone = Instantiate(markerPrefab, UICamera.transform);
+                DeliveryRequestMarker marker = clone.GetComponent<DeliveryRequestMarker>();
+                if (marker != null)
+                {
+                    marker.deliverySpot = d;
+                }
+            }
+        }
+        markersCreated = true;
+    }
 
     private void Update()
     {
@@ -19,6 +40,11 @@ public class GameManager : MonoBehaviour
         {
             input = FindObjectOfType<InputController>();
             SubscribeToInput(input);
+        }
+
+        if (SceneManager.GetActiveScene().name.Equals("GGJ") && !markersCreated)
+        {
+            CreateMarkers();
         }
     }
 
