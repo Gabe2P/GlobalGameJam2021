@@ -193,14 +193,20 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICa
 
     public ISelectable Select(object source)
     {
-        Highlight.SetActive(true);
+        if (Highlight != null)
+        {
+            Highlight.SetActive(true);
+        }
         OnSelect?.Invoke();
         return this;
     }
 
     public ISelectable Unselect(object source)
     {
-        Highlight.SetActive(false);
+        if (Highlight != null)
+        {
+            Highlight.SetActive(false);
+        }
         OnUnselect?.Invoke();
         return this;
     }
