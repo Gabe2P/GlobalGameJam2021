@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour, ICallAudioEvents
     private int Score;
 
     [SerializeField]
-    private int LoseState = 1;
+    private int LoseState = 3;
 
     [SerializeField]
     private int MissedDeliveries = 0;
@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour, ICallAudioEvents
 
     public void MissedDelivery()
     {
-        MissedDeliveries++;
+        MissedDeliveries += 1;
     }
 
     public void GameOver(float score)
@@ -122,6 +122,10 @@ public class GameManager : MonoBehaviour, ICallAudioEvents
     {
         Time.timeScale = 1;
         SceneManager.LoadScene(sceneName);
+        if(gameOverScreen.active)
+        {
+            gameOverScreen.SetActive(false);
+        }
     }
 
     public void QuitGame()

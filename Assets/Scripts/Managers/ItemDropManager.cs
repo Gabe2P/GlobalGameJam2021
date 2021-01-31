@@ -84,6 +84,7 @@ public class ItemDropManager : MonoBehaviour
 
         temp.transform.position = aPosition.position;
         temp.transform.position = new Vector3(temp.transform.position.x, temp.transform.position.y + 20, transform.position.z);
+        aPosition.gameObject.GetComponent<DropPoint>().EXPLOSION();
         temp.GetComponent<ItemController>().StartDrop(aPosition);
 
         myRequestManger.AddItemToRequestManager(temp);
