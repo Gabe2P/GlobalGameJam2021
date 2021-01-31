@@ -15,6 +15,7 @@ MonoBehaviour:
   Name: Candy
   ID: 0
   Mass: 10
-  Drag: 0.5
+  Drag: 1
+  Points: 0
   sprite: {fileID: -1188810203413717732, guid: 6e9e4f4bb6978b54199f3445b2bf459e, type: 3}
   prefab: {fileID: 2580007746473598568, guid: a4cecad016584114e96b78477ea1438d, type: 3}
