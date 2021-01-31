@@ -182,7 +182,7 @@ MonoBehaviour:
   sounds:
   - name: Drag
     mixer: {fileID: 0}
-    clip: {fileID: 8300000, guid: 26a0a5252f40f794ca6270fdc068ca3a, type: 3}
+    clip: {fileID: 8300000, guid: bf86ec7d57f507e45aff645f9bed0d6d, type: 3}
     volume: 1
     pitch: 1
     loop: 0
