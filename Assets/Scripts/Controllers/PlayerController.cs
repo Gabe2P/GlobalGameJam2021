@@ -50,11 +50,6 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEve
             input = FindObjectOfType<InputController>();
             SubscribeToInput(input);
         }
-
-        if (character != null)
-        {
-            Debug.DrawRay(this.transform.position, lookDirection.normalized * character.GetInteractionRange(), Color.red);
-        }
         if (dashTimer <= 0f)
         {
             currentSpeed = currentMoveSpeed;
@@ -164,16 +159,21 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEve
         {
             return;
         }
-        RaycastHit2D hitInfo = Physics2D.Raycast(this.transform.position, lookDirection.normalized, character.GetInteractionRange(), interactionLayer);
-        if (hitInfo)
+        Ray ray = new Ray(this.transform.position, lookDirection.normalized * character.GetInteractionRange());
+        RaycastHit2D hitBox = Physics2D.CircleCast(ray.GetPoint(character.GetInteractionRange()/2), character.GetInteractionRange()/2, lookDirection.normalized, character.GetInteractionRange(), interactionLayer);
+        if (hitBox)
         {
-            IGrabbable item = hitInfo.transform.gameObject.GetComponentInParent<IGrabbable>();
-            if (item != null)
+            RaycastHit2D hitInfo = Physics2D.Raycast(this.transform.position, hitBox.transform.position - this.transform.position, character.GetInteractionRange(), interactionLayer);
+            if (hitInfo)
             {
-                //currentGrabItem = item.Grab(this.gameObject);
-                currentGrabItem = item.Grab(motor, hitInfo.point);
-                CallAnimationTrigger?.Invoke("", null);
-                CallAudio?.Invoke("Grab", 0f);
+                IGrabbable item = hitInfo.transform.gameObject.GetComponentInParent<IGrabbable>();
+                if (item != null)
+                {
+                    //currentGrabItem = item.Grab(this.gameObject);
+                    currentGrabItem = item.Grab(motor, hitInfo.point);
+                    CallAnimationTrigger?.Invoke("", null);
+                    CallAudio?.Invoke("Grab", 0f);
+                }
             }
         }
     }
