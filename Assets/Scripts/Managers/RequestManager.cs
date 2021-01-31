@@ -8,8 +8,8 @@ public class RequestManager : MonoBehaviour
     public static RequestManager _Instance;
 
     public static RequestManager Instance { get {return _Instance;} }
- 
 
+    public GameObject GrabSprite;
 
 
     [SerializeField]
@@ -23,8 +23,8 @@ public class RequestManager : MonoBehaviour
     //private List<List<GameObject>> Deliveries = new List<List<GameObject>>();
 
     
-    public Dictionary<GameObject, List<GameObject>> Delivieries = new Dictionary<GameObject, List<GameObject>>();
-    [SerializeField]
+    
+    
     private int ItemsPerDelivery = 1;
 
     [SerializeField]

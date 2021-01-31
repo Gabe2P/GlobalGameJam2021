@@ -18,6 +18,10 @@ public class ItemDropManager : MonoBehaviour
     [SerializeField]
     float TimeBetweenDrops = 30f;
 
+    [SerializeField]
+    int DropThreshold = 5;
+
+
 
 
     [SerializeField]
@@ -101,7 +105,7 @@ public class ItemDropManager : MonoBehaviour
             DropItem(dropPoints[Random.Range(0, dropPoints.Count - 1)], ItemsToBeDropped[Random.Range(0, ItemsToBeDropped.Count)]);
         }
 
-        if(DropIncreaseCounter % 5 == 0)
+        if(DropIncreaseCounter % DropThreshold == 0)
         {
             DropAmmount++;
         }

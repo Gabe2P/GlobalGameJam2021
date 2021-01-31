@@ -32,6 +32,9 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEve
     private ISelectable selectedItem = null;
     private ISelectable prevSelectedItem = null;
 
+
+    
+
     private void Awake()
     {
         motor = GetComponent<Rigidbody2D>();

@@ -31,6 +31,9 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICa
     [SerializeField]
     float BounceCount;
 
+    GameObject GrabParticle;
+    GameObject ActiveGrab;
+
 
     public ItemType Item { get { return itemType; } }
 
@@ -46,6 +49,10 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICa
             motor.drag = itemType.Drag;
             motor.angularDrag = itemType.Drag;
         }
+    }
+    private void Start()
+    {
+        GrabParticle = RequestManager.Instance.GrabSprite;
     }
 
     private void Update()
@@ -95,6 +102,8 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICa
             joint.enabled = true;
             joint.connectedBody = player;
             OnGrab?.Invoke();
+            ActiveGrab = Instantiate(GrabParticle);
+            ActiveGrab.GetComponent<GrabParticle>().myDaddy = transform;
         }
         return this;
     }
@@ -108,8 +117,10 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICa
             if (input == Vector2.zero)
             {
                 motor.velocity = Vector3.zero;
+                
             }
             OnRelease?.Invoke();
+            Destroy(ActiveGrab, .1f);
         }
     }
 
@@ -129,6 +140,7 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICa
 
         if (transform.position.y - DropTarget.position.y < .1f)
         {
+            DropTarget.GetComponent<DropPoint>().EXPLOSION();
             Dropping = false;
             GetComponentInChildren<PolygonCollider2D>().enabled = true;
 
