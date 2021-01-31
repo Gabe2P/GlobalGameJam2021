@@ -13,12 +13,6 @@ public class DeliveryRequestMarker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (prevDeliverySpot != deliverySpot)
-        {
-            UnsubscribeToDeliverySpot(prevDeliverySpot);
-            SubscribeToDeliverySpot(deliverySpot);
-            prevDeliverySpot = deliverySpot;
-        }
         UpdateArrow();
     }
 
@@ -44,35 +38,5 @@ public class DeliveryRequestMarker : MonoBehaviour
     private void UpdateMarker(Vector2 point)
     {
         this.transform.position = point;
-    }
-
-    private void SubscribeToDeliverySpot(DeliverySpot reference)
-    {
-        if (reference != null)
-        {
-            reference.OnDeliveryRequested += EnableMarker;
-            reference.OnDeliveryRequested += DisableMarker;
-            reference.OnUpdateDeliveryMarker += UpdateMarker;
-        }
-    }
-
-    private void UnsubscribeToDeliverySpot(DeliverySpot reference)
-    {
-        if (reference != null)
-        {
-            reference.OnDeliveryRequested -= EnableMarker;
-            reference.OnDeliveryRequested -= DisableMarker;
-            reference.OnUpdateDeliveryMarker -= UpdateMarker;
-        }
-    }
-
-    private void OnEnable()
-    {
-        SubscribeToDeliverySpot(deliverySpot);
-    }
-
-    private void OnDisable()
-    {
-        UnsubscribeToDeliverySpot(deliverySpot);
     }
 }
