@@ -77,7 +77,7 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICa
             }
         }
 
-        if (motor != null)
+        if (motor != null && Time.timeScale != 0)
         {
             if (motor.velocity.magnitude >= .1f)
             {
