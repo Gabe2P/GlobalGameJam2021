@@ -115,6 +115,13 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEve
                 }
             }
         }
+        else
+        {
+            if (prevSelectedItem != null)
+            {
+                prevSelectedItem.Unselect(this.gameObject);
+            }
+        }
     }
 
     private void DetermineAnimationCall()

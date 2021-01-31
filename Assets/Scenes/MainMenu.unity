@@ -431,7 +431,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 437275872106684501}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1575845018}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8302e4a2887e06e469a16fda83bffde9, type: 3}
@@ -1156,6 +1156,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1495212629}
   m_CullTransparentMesh: 1
+--- !u!1 &1575845018 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 437275872246536684, guid: fd07cf4c5c3e0cc4fbddc368aaedbe89,
+    type: 3}
+  m_PrefabInstance: {fileID: 437275872106684501}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2136446989
 GameObject:
   m_ObjectHideFlags: 0
@@ -1299,6 +1305,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1161311861051587286, guid: fd07cf4c5c3e0cc4fbddc368aaedbe89,
+        type: 3}
+      propertyPath: referenceObject
+      value: 
+      objectReference: {fileID: 1575845018}
     - target: {fileID: 2983588233038077424, guid: fd07cf4c5c3e0cc4fbddc368aaedbe89,
         type: 3}
       propertyPath: m_IsActive

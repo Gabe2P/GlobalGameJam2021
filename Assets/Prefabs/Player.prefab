@@ -237,7 +237,7 @@ MonoBehaviour:
     mixer: {fileID: 0}
     clip: {fileID: 8300000, guid: 1db2eda92ba52bf46b68da53212e9720, type: 3}
     volume: 1
-    pitch: 1
+    pitch: 2
     loop: 0
     source: {fileID: 0}
   - name: Dash
