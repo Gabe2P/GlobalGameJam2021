@@ -344,5 +344,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b11e79f5dd7e6a4a99509f064472a58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: []
+  sounds:
+  - name: Drag
+    mixer: {fileID: 0}
+    clip: {fileID: 8300000, guid: bf86ec7d57f507e45aff645f9bed0d6d, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
   referenceObject: {fileID: 4774335052448582277}
