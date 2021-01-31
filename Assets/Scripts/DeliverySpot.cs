@@ -5,7 +5,7 @@ using UnityEngine;
 public class DeliverySpot : MonoBehaviour
 {
     [SerializeField]
-    public List<GameObject> RequestedItems = new List<GameObject>();
+    public GameObject RequestedItems;
 
 
 
@@ -34,7 +34,7 @@ public class DeliverySpot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        RequestManager.Instance.AvailableDeliveryPoints.Add(this);
     }
 
     // Update is called once per frame
@@ -50,7 +50,7 @@ public class DeliverySpot : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         
-        if(collision.GetComponentInParent<ItemController>() != null)
+        if(collision.GetComponentInParent<ItemController>() != null && RequestedItems !=null && ActiveDelivery)
         {
 
             
@@ -61,22 +61,21 @@ public class DeliverySpot : MonoBehaviour
 
     private void CheckItems(GameObject item)
     {
-        foreach(GameObject requestedItem in RequestedItems)
-        {
-            if(requestedItem.GetComponent<ItemController>().Item == item.GetComponent<ItemController>().Item)
-            {
-                Debug.Log("Gimme Banana");
-                //RequestedItems.Remove(requestedItem);
-                DeliveredItem = item;
-                DeliveredItem.GetComponent<ItemController>().Release(new Vector2(0,0));
-                DeliveredItem.GetComponent<ItemController>().enabled = false;
-                DeliveredItem.GetComponentInChildren<PolygonCollider2D>().enabled = false;
-                FDelivering = true;
 
-                break;
-            }
-        } 
-        
+        if (RequestedItems.GetComponent<ItemController>().Item == item.GetComponent<ItemController>().Item)
+        {
+            Debug.Log("Gimme Banana");
+            RequestedItems = null;
+            DeliveredItem = item;
+            DeliveredItem.GetComponent<ItemController>().Release(new Vector2(0, 0));
+            DeliveredItem.GetComponent<ItemController>().enabled = false;
+            DeliveredItem.GetComponentInChildren<PolygonCollider2D>().enabled = false;
+            FDelivering = true;
+
+
+        }
+
+
     }
 
     public void DeliverItem()
@@ -86,14 +85,19 @@ public class DeliverySpot : MonoBehaviour
         if (DeliveredItem.transform.position.y >= transform.position.y + AscensionHeight)
         {
             FDelivering = false;
-            RequestedItems.Remove(DeliveredItem);
+            RequestedItems= null;
             Destroy(DeliveredItem);
             CompleteDelivery();
         }
+        if (DeliveredItem != null)
+        {
+            Destroy(DeliveredItem, 10f);
+        }
+
     }
 
 
-    public void StartDelivery(List<GameObject> items)
+    public void StartDelivery(GameObject items)
     {
         ActiveDelivery = true;
         RequestedItems = items;
@@ -102,11 +106,10 @@ public class DeliverySpot : MonoBehaviour
 
     private void CompleteDelivery()
     {
-        if (RequestedItems.Count <= 0)
-        {
+        
             RequestManager.Instance.CompleteDelivery(this);
             ActiveDelivery = false;
-        }
+        
     }
 
         
