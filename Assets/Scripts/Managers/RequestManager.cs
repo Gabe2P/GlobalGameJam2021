@@ -13,7 +13,7 @@ public class RequestManager : MonoBehaviour
 
 
     [SerializeField]
-    private List<DeliverySpot> AvailableDeliveryPoints = new List<DeliverySpot>();
+    public List<DeliverySpot> AvailableDeliveryPoints = new List<DeliverySpot>();
 
 
     [SerializeField]
@@ -28,11 +28,15 @@ public class RequestManager : MonoBehaviour
     private int ItemsPerDelivery = 1;
 
     [SerializeField]
-    private float TimeBetweenDeliveries = 10f;
+    private float TimeBetweenDeliveries = 60f;
 
     private float TimeUntilNextDelivery;
 
-    
+    [SerializeField]
+    float RampUpInterval = 120;
+
+    [SerializeField]
+    float Timer = 0;
 
     
     
@@ -64,8 +68,18 @@ public class RequestManager : MonoBehaviour
         {
             StartDelivery();
         }
+        Timer += Time.deltaTime;
+        RampUp();
     }
 
+   private void RampUp()
+    {
+        if( Timer >= RampUpInterval )
+        {
+            ItemsPerDelivery++;
+            Timer = 0;
+        }
+    }
 
     public void AddItemToRequestManager(GameObject item)
     {
@@ -80,20 +94,22 @@ public class RequestManager : MonoBehaviour
 
     private void StartDelivery()
     {
-        List<GameObject> Deliverables = new List<GameObject>();
-        DeliverySpot DropSpot = AvailableDeliveryPoints[Random.Range(0,AvailableDeliveryPoints.Count -1)];
-        AvailableDeliveryPoints.Remove(DropSpot);
-        List<int> checkedDeliverySpots = new List<int>();
         
+        
+        List<int> checkedDeliverySpots = new List<int>();
+        GameObject Deliverables;
         for(int i = 0; i < ItemsPerDelivery; i++)
         {
+            DeliverySpot DropSpot = AvailableDeliveryPoints[Random.Range(0, AvailableDeliveryPoints.Count - 1)];
+            AvailableDeliveryPoints.Remove(DropSpot);
             int index = Random.Range(0, ItemsSpawned.Count - 1);
-            Deliverables.Add(ItemsSpawned[index]);
+            Deliverables=ItemsSpawned[index];
             RemoveItemFromList(ItemsSpawned[index]);
 
+            DropSpot.StartDelivery(Deliverables);
         }
 
-        DropSpot.StartDelivery(Deliverables);
+        
 
         TimeUntilNextDelivery = TimeBetweenDeliveries + Time.time;
 

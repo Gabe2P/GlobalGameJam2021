@@ -86,6 +86,11 @@ public class ItemDropManager : MonoBehaviour
         
     }
 
+    public void AddDropPoint(Transform spot)
+    {
+        dropPoints.Add(spot);
+    }
+
     private void DropTime()
     {
         DropIncreaseCounter++;
