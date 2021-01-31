@@ -6,8 +6,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, ICallAudioEvents
 {
+    public event Action<string, float> PlayAudio;
+    public event Action<string> StopAudio;
+
     [SerializeField] private InputController input = null;
     [SerializeField] private GameObject pauseScreen;
     [SerializeField] private GameObject gameOverScreen;
@@ -39,7 +42,13 @@ public class GameManager : MonoBehaviour
         else
         {
             _Instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
+    }
+
+    private void Start()
+    {
+        PlayAudio?.Invoke("ThemeSong", 0f);
     }
 
     private void Update()
@@ -74,6 +83,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver(float score)
     {
+        MissedDeliveries = 0;
         scoreTextBox.text = score.ToString();
         gameOverScreen.SetActive(true);
         Time.timeScale = 0;
@@ -110,6 +120,7 @@ public class GameManager : MonoBehaviour
 
     public void ChangeScene(string sceneName)
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(sceneName);
     }
 

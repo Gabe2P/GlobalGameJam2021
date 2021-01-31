@@ -136,7 +136,7 @@ public class AudioCoordinator : MonoBehaviour
     {
         if (reference != null)
         {
-            reference.CallAudio += CallAudio;
+            reference.PlayAudio += CallAudio;
         }
     }
 
@@ -144,7 +144,7 @@ public class AudioCoordinator : MonoBehaviour
     {
         if (reference != null)
         {
-            reference.CallAudio -= CallAudio;
+            reference.PlayAudio -= CallAudio;
         }
     }
 

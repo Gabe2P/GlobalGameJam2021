@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Pendent
   ID: 6
-  Mass: 50
+  Mass: 20
   Drag: 5
+  Points: 0
   sprite: {fileID: 7922435198963833554, guid: 6e9e4f4bb6978b54199f3445b2bf459e, type: 3}
   prefab: {fileID: 6836446118071888028, guid: 4e28f80e51864fc4db86202825a57ea0, type: 3}

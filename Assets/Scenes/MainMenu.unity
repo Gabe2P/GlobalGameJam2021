@@ -431,7 +431,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 437275872106684501}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1575845018}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8302e4a2887e06e469a16fda83bffde9, type: 3}
@@ -953,6 +953,7 @@ GameObject:
   - component: {fileID: 1456231989}
   - component: {fileID: 1456231991}
   - component: {fileID: 1456231990}
+  - component: {fileID: 1456231992}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -1022,6 +1023,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1456231988}
   m_CullTransparentMesh: 1
+--- !u!114 &1456231992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1456231988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf12f627789b82643b1c07498cb942b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1495212629
 GameObject:
   m_ObjectHideFlags: 0
@@ -1105,16 +1118,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 199113146}
-        m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
+      - m_Target: {fileID: 1456231992}
+        m_TargetAssemblyTypeName: MainMenuScript, Assembly-CSharp
         m_MethodName: ChangeScene
-        m_Mode: 5
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: GGJ
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1495212632
@@ -1156,6 +1169,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1495212629}
   m_CullTransparentMesh: 1
+--- !u!1 &1575845018 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 437275872246536684, guid: fd07cf4c5c3e0cc4fbddc368aaedbe89,
+    type: 3}
+  m_PrefabInstance: {fileID: 437275872106684501}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2136446989
 GameObject:
   m_ObjectHideFlags: 0
@@ -1299,6 +1318,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1161311861051587286, guid: fd07cf4c5c3e0cc4fbddc368aaedbe89,
+        type: 3}
+      propertyPath: referenceObject
+      value: 
+      objectReference: {fileID: 1575845018}
     - target: {fileID: 2983588233038077424, guid: fd07cf4c5c3e0cc4fbddc368aaedbe89,
         type: 3}
       propertyPath: m_IsActive
