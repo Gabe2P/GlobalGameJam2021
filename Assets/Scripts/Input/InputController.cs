@@ -74,7 +74,7 @@ public class InputController : MonoBehaviour
         curVector = new Vector2(Input.GetAxisRaw(XAxisString), Input.GetAxisRaw(YAxisString));
         if (curVector != prevVector)
         {
-            OnMovementChanged(curVector);
+            OnMovementChanged?.Invoke(curVector);
             prevVector = curVector;
         }
     }
