@@ -128,6 +128,7 @@ public class DeliverySpot : MonoBehaviour
     private void RightDelivery(GameObject item)
     {
         CheckItems(item);
+        GameManager.Instance.AddScore(item.GetComponent<ItemController>().Item.Points);
     }
 
     private void FailedDelivery()
@@ -137,12 +138,15 @@ public class DeliverySpot : MonoBehaviour
         RequestedItems = null;
         SpotLight.SetActive(false);
         CompleteDelivery();
+        GameManager.Instance.MissedDelivery();
     }
 
     private void WrongItem(GameObject item)
     {
         if (item.GetComponent<ItemController>() != null)
         {
+            GameManager.Instance.AddScore((int)Mathf.Floor((item.GetComponent<ItemController>().Item.Points / 2)));
+
             Debug.Log("Gimme Banana");
             RequestedItems = null;
             DeliveredItem = item;

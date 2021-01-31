@@ -14,6 +14,9 @@ public class ItemType : ScriptableObject
     public float Mass;
     public float Drag;
 
+
+    public int Points;
+
     public Sprite sprite;
     public GameObject prefab;
 
