@@ -15,7 +15,9 @@ public class GameManager : MonoBehaviour
     public List<DeliverySpot> deliverySpots = new List<DeliverySpot>();
     public GameObject markerPrefab;
     public Camera UICamera;
+    public Canvas UICanvas;
     private bool markersCreated = false;
+    public string sceneName = "GGJ";
 
     private void CreateMarkers()
     {
@@ -23,10 +25,11 @@ public class GameManager : MonoBehaviour
         {
             foreach (DeliverySpot d in deliverySpots)
             {
-                GameObject clone = Instantiate(markerPrefab, UICamera.transform);
+                GameObject clone = Instantiate(markerPrefab, UICanvas.transform);
                 DeliveryRequestMarker marker = clone.GetComponent<DeliveryRequestMarker>();
                 if (marker != null)
                 {
+                    marker.UiCamera = UICamera;
                     marker.deliverySpot = d;
                 }
             }
@@ -42,7 +45,7 @@ public class GameManager : MonoBehaviour
             SubscribeToInput(input);
         }
 
-        if (SceneManager.GetActiveScene().name.Equals("GGJ") && !markersCreated)
+        if (SceneManager.GetActiveScene().name.Equals(sceneName) && !markersCreated)
         {
             CreateMarkers();
         }

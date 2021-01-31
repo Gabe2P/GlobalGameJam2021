@@ -52,7 +52,10 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICa
     }
     private void Start()
     {
-        GrabParticle = RequestManager.Instance.GrabSprite;
+        if (RequestManager.Instance != null)
+        {
+            GrabParticle = RequestManager.Instance.GrabSprite;
+        }
     }
 
     private void Update()
