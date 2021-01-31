@@ -27,6 +27,9 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICa
     private bool Bouncing = false;
     private bool BounceUp = true;
     Transform DropTarget;
+
+    
+    float ExplosionForce = 500;
     
     float BounceLimit;
     [SerializeField]
@@ -138,7 +141,7 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICa
         Dropping = true;
         DropTarget = targetSpot;
 
-        
+        EXPLOSION(DropTarget);
 
         GetComponentInChildren<PolygonCollider2D>().enabled = false;
     }
@@ -146,10 +149,10 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICa
     {
         transform.position = new Vector3(transform.position.x, transform.position.y - 30 * Time.deltaTime, transform.position.z);
 
-
+        
         if (transform.position.y - DropTarget.position.y < .1f)
         {
-            DropTarget.GetComponent<DropPoint>().EXPLOSION();
+            
             Dropping = false;
             GetComponentInChildren<PolygonCollider2D>().enabled = true;
 
@@ -188,6 +191,27 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICa
             
         }
        
+    }
+    public void EXPLOSION(Transform spot)
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(spot.position, 5f);
+        foreach (Collider2D hit in colliders)
+        {
+            if (hit.GetComponentInParent<Rigidbody2D>() != null && hit.GetComponentInParent<Rigidbody2D>() != this.GetComponent<Rigidbody2D>())
+            {
+                Rigidbody2D rb = hit.GetComponentInParent<Rigidbody2D>();
+
+
+
+                if (rb != null)
+                {
+                    Vector2 direction = rb.transform.position - spot.position;
+
+                    rb.AddForce(direction * ExplosionForce);
+                    rb.AddForceAtPosition(direction * ExplosionForce, spot.position);
+                }
+            }
+        }
     }
 
     //public void SetItem(ItemType myItem , Rigidbody2D body, HingeJoint2D hinge)

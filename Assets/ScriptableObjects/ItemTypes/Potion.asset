@@ -16,6 +16,6 @@ MonoBehaviour:
   ID: 7
   Mass: 10
   Drag: 5
-  Points: 0
+  Points: 10
   sprite: {fileID: -1099315211231301535, guid: 6e9e4f4bb6978b54199f3445b2bf459e, type: 3}
   prefab: {fileID: 6214537978384907790, guid: 64657b3a33246914dba74fbc71c062c8, type: 3}
