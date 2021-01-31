@@ -9,7 +9,7 @@ public interface ISelectable
     public event Action OnSelect;
     public event Action OnUnselect;
 
-    object Select(object source);
+    ISelectable Select(object source);
 
-    object Unselect(object source);
+    ISelectable Unselect(object source);
 }
