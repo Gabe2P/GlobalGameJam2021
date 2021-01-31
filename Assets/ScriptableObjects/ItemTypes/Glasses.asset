@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a18ae9602c97b840ae60535e9fd4766, type: 3}
-  m_Name: Banana
+  m_Name: Glasses
   m_EditorClassIdentifier: 
-  Name: Banana
-  Mass: 1
+  Name: Glasses
+  ID: 5
+  Mass: 100
   Drag: 1
-  sprite: {fileID: 21300000, guid: 671aa68dcd1b0c749940c59d9ea2fa05, type: 3}
+  sprite: {fileID: 8823992338322106570, guid: 6e9e4f4bb6978b54199f3445b2bf459e, type: 3}
+  prefab: {fileID: 1905076002645171841, guid: ad2cfb4f0f907ce4eb497a02a0ef6913, type: 3}

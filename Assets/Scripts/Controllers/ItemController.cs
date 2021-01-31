@@ -18,8 +18,7 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICa
     private Rigidbody2D motor = null;
     private HingeJoint2D joint = null;
 
-    private Vector2 force = Vector2.zero;
-    private Vector2 contactPoint = Vector2.zero;
+    private bool isGrabbed = false;
 
     public ItemType Item { get { return itemType; } }
 
@@ -33,6 +32,33 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICa
         {
             motor.mass = itemType.Mass;
             motor.drag = itemType.Drag;
+        }
+    }
+
+    private void Update()
+    {
+        if (joint != null)
+        {
+            if (joint.connectedBody != null)
+            {
+                isGrabbed = true;
+            }
+            else
+            {
+                isGrabbed = false;
+            }
+        }
+
+        if (motor != null)
+        {
+            if (motor.velocity.magnitude >= .1f)
+            {
+                CallAudio?.Invoke("Drag", 0f);
+            }
+            else
+            {
+                motor.velocity = Vector2.zero;
+            }
         }
     }
 
