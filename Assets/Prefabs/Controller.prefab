@@ -47,3 +47,4 @@ MonoBehaviour:
   YAxisString: Vertical
   grabString: Grab
   dashString: Dash
+  pauseString: Pause

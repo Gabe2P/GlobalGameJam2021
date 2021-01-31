@@ -5,11 +5,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEvents
+public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEvents, ICallParticleEvents
 {
     public event Action<string, object> CallAnimationTrigger;
     public event Action<string, int> CallAnimationState;
     public event Action<string, float> CallAudio;
+    public event Action<Vector2> CallParticles;
 
     [SerializeField] private InputController input = null;
     [SerializeField] private CharacterType character = null;
@@ -44,6 +45,12 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEve
 
     private void Update()
     {
+        if (input == null)
+        {
+            input = FindObjectOfType<InputController>();
+            SubscribeToInput(input);
+        }
+
         if (character != null)
         {
             Debug.DrawRay(this.transform.position, lookDirection.normalized * character.GetInteractionRange(), Color.red);
@@ -110,18 +117,22 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEve
             if (lookDirection.y > 0 && lookDirection.x < .5 && lookDirection.x > -.5)
             {
                 CallAnimationState?.Invoke("WalkingBackwards", 0);
+                CallParticles?.Invoke(this.transform.position);
             }
             if (lookDirection.y < 0 && lookDirection.x < .5 && lookDirection.x > -.5)
             {
                 CallAnimationState?.Invoke("WalkingForward", 0);
+                CallParticles?.Invoke(this.transform.position);
             }
             if (lookDirection.x < 0 && lookDirection.y < .5 && lookDirection.y > -.5)
             {
                 CallAnimationState?.Invoke("WalkingLeft", 0);
+                CallParticles?.Invoke(this.transform.position);
             }
             if (lookDirection.x > 0 && lookDirection.y < .5 && lookDirection.y > -.5)
             {
                 CallAnimationState?.Invoke("WalkingRight", 0);
+                CallParticles?.Invoke(this.transform.position);
             }
         }
     }
