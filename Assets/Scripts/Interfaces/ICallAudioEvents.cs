@@ -6,5 +6,6 @@ using UnityEngine;
 
 public interface ICallAudioEvents
 {
-    public event Action<string, float> CallAudio;
+    public event Action<string, float> PlayAudio;
+    public event Action<string> StopAudio;
 }

@@ -12,7 +12,8 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICa
     public event Action OnRelease;
     public event Action<string, object> CallAnimationTrigger;
     public event Action<string, int> CallAnimationState;
-    public event Action<string, float> CallAudio;
+    public event Action<string, float> PlayAudio;
+    public event Action<string> StopAudio;
 
     [SerializeField] private ItemType itemType = null;
     [SerializeField] private GameObject Highlight = null;
@@ -82,11 +83,13 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICa
             {
                 if (isGrabbed)
                 {
-                    CallAudio?.Invoke("Drag", 0f);
+                    StopAudio?.Invoke("Pushed");
+                    PlayAudio?.Invoke("Drag", 0f);
                 }
                 else
                 {
-                    CallAudio?.Invoke("Pushed", 0f);
+                    StopAudio?.Invoke("Drag");
+                    PlayAudio?.Invoke("Pushed", 0f);
                 }
             }
             else

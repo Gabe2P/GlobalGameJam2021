@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEve
 {
     public event Action<string, object> CallAnimationTrigger;
     public event Action<string, int> CallAnimationState;
-    public event Action<string, float> CallAudio;
+    public event Action<string, float> PlayAudio;
+    public event Action<string> StopAudio;
     public event Action<Vector2, Quaternion, float> CallVFX;
 
     [SerializeField] private InputController input = null;
@@ -170,14 +171,14 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEve
     {
         if (isDashing)
         {
-            CallAudio?.Invoke("Dash", 0f);
+            PlayAudio?.Invoke("Dash", 0f);
             CallVFX?.Invoke(this.transform.position - new Vector3(0, 1, 0), Quaternion.identity, .1f);
         }
         else
         {
             if (currentInput != Vector2.zero)
             {
-                CallAudio?.Invoke("Walking", .1f);
+                PlayAudio?.Invoke("Walking", .1f);
             }
         }
     }
@@ -209,7 +210,7 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEve
                 {
                     currentGrabItem = item.Grab(motor, hitInfo.point);
                     CallAnimationTrigger?.Invoke("", null);
-                    CallAudio?.Invoke("Grab", 0f);
+                    PlayAudio?.Invoke("Grab", 0f);
                 }
             }
         }
@@ -222,7 +223,7 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEve
             currentGrabItem.Release(currentInput);
             currentGrabItem = null;
             CallAnimationTrigger?.Invoke("", null);
-            CallAudio?.Invoke("Release", 0f);
+            PlayAudio?.Invoke("Release", 0f);
         }
     }
 

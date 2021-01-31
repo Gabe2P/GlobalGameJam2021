@@ -8,7 +8,9 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour, ICallAudioEvents
 {
-    public event Action<string, float> CallAudio;
+    public event Action<string, float> PlayAudio;
+    public event Action<string> StopAudio;
+
     [SerializeField] private InputController input = null;
     [SerializeField] private GameObject pauseScreen;
     [SerializeField] private GameObject gameOverScreen;
@@ -46,7 +48,7 @@ public class GameManager : MonoBehaviour, ICallAudioEvents
 
     private void Start()
     {
-        CallAudio?.Invoke("ThemeSong", 0f);
+        PlayAudio?.Invoke("ThemeSong", 0f);
     }
 
     private void Update()
