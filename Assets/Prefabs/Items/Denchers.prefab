@@ -68,8 +68,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -815840133
+  m_SortingLayer: -1
   m_SortingOrder: -1
   m_Sprite: {fileID: 4115924340182900474, guid: d72a5a59119274749b45acee7355cc44,
     type: 3}
@@ -349,13 +349,6 @@ MonoBehaviour:
     mixer: {fileID: 0}
     clip: {fileID: 8300000, guid: bf86ec7d57f507e45aff645f9bed0d6d, type: 3}
     volume: 0.558
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: Pushed
-    mixer: {fileID: 0}
-    clip: {fileID: 8300000, guid: bf86ec7d57f507e45aff645f9bed0d6d, type: 3}
-    volume: 0.587
     pitch: 1
     loop: 0
     source: {fileID: 0}
