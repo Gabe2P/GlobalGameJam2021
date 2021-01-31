@@ -6,8 +6,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, ICallAudioEvents
 {
+    public event Action<string, float> CallAudio;
     [SerializeField] private InputController input = null;
     [SerializeField] private GameObject pauseScreen;
     [SerializeField] private GameObject gameOverScreen;
@@ -40,6 +41,11 @@ public class GameManager : MonoBehaviour
         {
             _Instance = this;
         }
+    }
+
+    private void Start()
+    {
+        CallAudio?.Invoke("ThemeSong", 0f);
     }
 
     private void Update()
