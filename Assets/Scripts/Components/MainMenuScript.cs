@@ -13,4 +13,12 @@ public class MainMenuScript : MonoBehaviour
             GameManager.Instance.ChangeScene(nextScene);
         }
     }
+
+    public void Quit()
+    {
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.QuitGame();
+        }
+    }
 }

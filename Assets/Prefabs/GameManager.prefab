@@ -223,8 +223,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b11e79f5dd7e6a4a99509f064472a58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: []
-  referenceObject: {fileID: 0}
+  sounds:
+  - name: ThemeSong
+    mixer: {fileID: 0}
+    clip: {fileID: 8300000, guid: b1a1fee9c5bba4044ba7163d8aa6d930, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  referenceObject: {fileID: 437275872246536684}
 --- !u!1 &728811449663741446
 GameObject:
   m_ObjectHideFlags: 0
