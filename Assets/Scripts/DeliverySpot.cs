@@ -23,9 +23,17 @@ public class DeliverySpot : MonoBehaviour
 
     GameObject DeliveredItem;
 
+    [SerializeField]
+    GameObject SpotLight;
+
+    [SerializeField]
+    GameObject Hand;
+    GameObject ActiveHand;
+
 
 
     bool FDelivering = false;
+    bool HandMoving = false;
 
 
 
@@ -35,15 +43,21 @@ public class DeliverySpot : MonoBehaviour
     void Start()
     {
         RequestManager.Instance.AvailableDeliveryPoints.Add(this);
+        SpotLight.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(HandMoving)
+        {
+            MoveHand();
+        }
         if(FDelivering)
         {
             DeliverItem();
         }
+        
         
     }
 
@@ -70,9 +84,15 @@ public class DeliverySpot : MonoBehaviour
             DeliveredItem.GetComponent<ItemController>().Release(new Vector2(0, 0));
             DeliveredItem.GetComponent<ItemController>().enabled = false;
             DeliveredItem.GetComponentInChildren<PolygonCollider2D>().enabled = false;
-            FDelivering = true;
+            HandMoving = true;
 
-            CompleteDelivery();
+            if (ActiveHand == null)
+            {
+                ActiveHand = Instantiate(Hand);
+                ActiveHand.transform.position = new Vector3(DeliveredItem.transform.position.x, DeliveredItem.transform.position.y + AscensionHeight, DeliveredItem.transform.position.z -1);
+            }
+
+            
 
 
         }
@@ -80,16 +100,36 @@ public class DeliverySpot : MonoBehaviour
 
     }
 
+    private void MoveHand()
+    {
+        
+
+        ActiveHand.transform.position -= new Vector3(0, AscensionSpeed * Time.deltaTime, 0);
+
+        if(ActiveHand.transform.position.y <= DeliveredItem.transform.position.y)
+        {
+            DeliveredItem.transform.parent = ActiveHand.transform;
+            //DeliveredItem.transform.localPosition = new Vector3(0, 0, 1);
+            HandMoving = false;
+            FDelivering = true;
+            ActiveHand.GetComponentInChildren<Animator>().SetTrigger("CloseHand");
+        }
+
+    }
+
     public void DeliverItem()
     {
-        DeliveredItem.transform.position = new Vector3(DeliveredItem.transform.position.x, DeliveredItem.transform.position.y + AscensionSpeed * Time.deltaTime, DeliveredItem.transform.position.z);
+        ActiveHand.transform.position += new Vector3(0, AscensionSpeed * Time.deltaTime, 0);
 
-        if (DeliveredItem.transform.position.y >= transform.position.y + AscensionHeight)
+        if (ActiveHand.transform.position.y >= transform.position.y + AscensionHeight)
         {
             FDelivering = false;
             RequestedItems= null;
             Destroy(DeliveredItem);
-            
+            Destroy(ActiveHand);
+            SpotLight.SetActive(false);
+
+            CompleteDelivery();
         }
         if (DeliveredItem != null)
         {
@@ -103,6 +143,7 @@ public class DeliverySpot : MonoBehaviour
     {
         ActiveDelivery = true;
         RequestedItems = items;
+        SpotLight.SetActive(true);
 
     }
 
