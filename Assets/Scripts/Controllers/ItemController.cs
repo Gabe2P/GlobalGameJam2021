@@ -52,7 +52,10 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICa
     }
     private void Start()
     {
-        GrabParticle = RequestManager.Instance.GrabSprite;
+        if (RequestManager.Instance != null)
+        {
+            GrabParticle = RequestManager.Instance.GrabSprite;
+        }
     }
 
     private void Update()
@@ -102,8 +105,11 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICa
             joint.enabled = true;
             joint.connectedBody = player;
             OnGrab?.Invoke();
-            ActiveGrab = Instantiate(GrabParticle);
-            ActiveGrab.GetComponent<GrabParticle>().myDaddy = transform;
+            if (GrabParticle != null)
+            {
+                ActiveGrab = Instantiate(GrabParticle);
+                ActiveGrab.GetComponent<GrabParticle>().myDaddy = transform;
+            }
         }
         return this;
     }

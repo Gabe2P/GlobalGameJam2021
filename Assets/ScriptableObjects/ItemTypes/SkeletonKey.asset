@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: SkeletonKey
   ID: 9
-  Mass: 75
+  Mass: 20
   Drag: 5
+  Points: 0
   sprite: {fileID: -2097293949004138934, guid: 6e9e4f4bb6978b54199f3445b2bf459e, type: 3}
   prefab: {fileID: 7904835760433480021, guid: 12aee6269e58e1e4197d0d2b7da382a8, type: 3}

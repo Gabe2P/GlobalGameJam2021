@@ -190,6 +190,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Eyeball
       objectReference: {fileID: 0}
+    - target: {fileID: 2042778741655551691, guid: 40f7b882768ad1c4aab23298cb85af22,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6205625115389577907, guid: 40f7b882768ad1c4aab23298cb85af22,
         type: 3}
       propertyPath: sounds.Array.size
@@ -473,6 +478,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SkeletonKey
+      objectReference: {fileID: 0}
+    - target: {fileID: 7904835760433480021, guid: 12aee6269e58e1e4197d0d2b7da382a8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7904835760433480022, guid: 12aee6269e58e1e4197d0d2b7da382a8,
         type: 3}
@@ -888,6 +898,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pendent
       objectReference: {fileID: 0}
+    - target: {fileID: 6836446118071888028, guid: 4e28f80e51864fc4db86202825a57ea0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6836446118071888031, guid: 4e28f80e51864fc4db86202825a57ea0,
         type: 3}
       propertyPath: m_RootOrder
@@ -982,6 +997,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Remote
       objectReference: {fileID: 0}
+    - target: {fileID: 6260638222051918520, guid: 3d72efccb50d6644297111d9f0a401a2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6260638222051918523, guid: 3d72efccb50d6644297111d9f0a401a2,
         type: 3}
       propertyPath: m_RootOrder
@@ -1062,6 +1082,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Glasses
+      objectReference: {fileID: 0}
+    - target: {fileID: 1905076002645171841, guid: ad2cfb4f0f907ce4eb497a02a0ef6913,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1905076002645171842, guid: ad2cfb4f0f907ce4eb497a02a0ef6913,
         type: 3}
@@ -1217,6 +1242,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Potion
       objectReference: {fileID: 0}
+    - target: {fileID: 6214537978384907790, guid: 64657b3a33246914dba74fbc71c062c8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6578540925480640039, guid: 64657b3a33246914dba74fbc71c062c8,
         type: 3}
       propertyPath: sounds.Array.size
@@ -1336,6 +1366,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CellPhone
       objectReference: {fileID: 0}
+    - target: {fileID: 5591237741712086022, guid: c11a828ca986da643ad06db15f23e8ef,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c11a828ca986da643ad06db15f23e8ef, type: 3}
 --- !u!1001 &1545133306
@@ -1405,6 +1440,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CoinPouch
       objectReference: {fileID: 0}
+    - target: {fileID: 1200928448229001338, guid: 85e9af8d609cca64c81f61ba85d6435d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4244648233530449393, guid: 85e9af8d609cca64c81f61ba85d6435d,
         type: 3}
       propertyPath: sounds.Array.size
@@ -1443,6 +1483,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Denchers
+      objectReference: {fileID: 0}
+    - target: {fileID: 4774335052448582277, guid: f35853ca934a0b24c8ac38e50bbe7caa,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4774335052448582278, guid: f35853ca934a0b24c8ac38e50bbe7caa,
         type: 3}
@@ -1622,6 +1667,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DustCloud
+      objectReference: {fileID: 0}
+    - target: {fileID: 3117440964340236162, guid: 829e5f71b60159741ab38b39c13940b5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3159871829478190532, guid: 829e5f71b60159741ab38b39c13940b5,
         type: 3}

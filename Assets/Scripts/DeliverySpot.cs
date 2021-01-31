@@ -47,7 +47,10 @@ public class DeliverySpot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        RequestManager.Instance.AvailableDeliveryPoints.Add(this);
+        if (RequestManager.Instance != null)
+        {
+            RequestManager.Instance.AvailableDeliveryPoints.Add(this);
+        }
         SpotLight.SetActive(false);
         TimeToDeliveryEnd = Time.time + TimeToDeliverItems;
     }
@@ -243,10 +246,12 @@ public class DeliverySpot : MonoBehaviour
 
     private void CompleteDelivery()
     {
-            TimeToDeliveryEnd = Time.time + TimeToDeliverItems;
+        TimeToDeliveryEnd = Time.time + TimeToDeliverItems;
+        if (RequestManager.Instance != null)
+        {
             RequestManager.Instance.CompleteDelivery(this);
-            ActiveDelivery = false;
-        
+        }
+        ActiveDelivery = false;
     }
 
         
