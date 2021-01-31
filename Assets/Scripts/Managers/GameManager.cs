@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour, ICallAudioEvents
         else
         {
             _Instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
     }
 
@@ -80,6 +81,7 @@ public class GameManager : MonoBehaviour, ICallAudioEvents
 
     public void GameOver(float score)
     {
+        MissedDeliveries = 0;
         scoreTextBox.text = score.ToString();
         gameOverScreen.SetActive(true);
         Time.timeScale = 0;
@@ -116,6 +118,7 @@ public class GameManager : MonoBehaviour, ICallAudioEvents
 
     public void ChangeScene(string sceneName)
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(sceneName);
     }
 

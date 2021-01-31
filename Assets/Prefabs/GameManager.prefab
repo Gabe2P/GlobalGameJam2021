@@ -207,7 +207,10 @@ MonoBehaviour:
   input: {fileID: 5277657053266004674}
   pauseScreen: {fileID: 4434382993885731645}
   gameOverScreen: {fileID: 2983588233038077424}
-  scoreTextBox: {fileID: 0}
+  scoreTextBox: {fileID: 7079167813605469558}
+  Score: 0
+  LoseState: 1
+  MissedDeliveries: 0
 --- !u!114 &1161311861051587286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -415,7 +418,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 32767
   m_TargetDisplay: 0
 --- !u!114 &8261454275695280077
 MonoBehaviour:
