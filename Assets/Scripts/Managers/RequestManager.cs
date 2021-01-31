@@ -8,8 +8,8 @@ public class RequestManager : MonoBehaviour
     public static RequestManager _Instance;
 
     public static RequestManager Instance { get {return _Instance;} }
- 
 
+    public GameObject GrabSprite;
 
 
     [SerializeField]

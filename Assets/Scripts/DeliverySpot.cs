@@ -72,6 +72,8 @@ public class DeliverySpot : MonoBehaviour
             DeliveredItem.GetComponentInChildren<PolygonCollider2D>().enabled = false;
             FDelivering = true;
 
+            CompleteDelivery();
+
 
         }
 
@@ -87,7 +89,7 @@ public class DeliverySpot : MonoBehaviour
             FDelivering = false;
             RequestedItems= null;
             Destroy(DeliveredItem);
-            CompleteDelivery();
+            
         }
         if (DeliveredItem != null)
         {

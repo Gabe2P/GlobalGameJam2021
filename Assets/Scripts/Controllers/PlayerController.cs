@@ -30,6 +30,9 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEve
     private bool isDashing = false;
     private IGrabbable currentGrabItem = null;
 
+
+    
+
     private void Awake()
     {
         motor = GetComponent<Rigidbody2D>();
