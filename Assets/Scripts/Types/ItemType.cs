@@ -15,5 +15,6 @@ public class ItemType : ScriptableObject
     public float Drag;
 
     public Sprite sprite;
+    public GameObject prefab;
 
 }

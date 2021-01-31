@@ -18,11 +18,14 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEve
     [SerializeField] private LayerMask interactionLayer;
     private Vector2 lookDirection = Vector2.zero;
     private Vector2 currentInput = Vector2.zero;
-    private float timer = 0f;
+    private float resetDashTimer = 0f;
+    private float dashTimer = 0f;
     [SerializeField] private float currentSpeed = 0f;
     [SerializeField] private float currentMoveSpeed = 0f;
     [SerializeField] private float currentDashLength = 0f;
+    [SerializeField] private float currentDashResetLength = 0f;
     [SerializeField] private float currentDashSpeed = 0f;
+    private bool canDash = true;
     private bool isDashing = false;
     private IGrabbable currentGrabItem = null;
 
@@ -35,6 +38,7 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEve
             currentMoveSpeed = character.GetMoveSpeed();
             currentDashSpeed = character.GetDashSpeed();
             currentDashLength = character.GetDashLength();
+            currentDashResetLength = character.GetDashResetLength();
         }
     }
 
@@ -44,7 +48,7 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEve
         {
             Debug.DrawRay(this.transform.position, lookDirection.normalized * character.GetInteractionRange(), Color.red);
         }
-        if (timer <= 0f)
+        if (dashTimer <= 0f)
         {
             currentSpeed = currentMoveSpeed;
             isDashing = false;
@@ -53,7 +57,16 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEve
         {
             isDashing = true;
             currentSpeed = currentDashSpeed;
-            timer -= Time.deltaTime;
+            dashTimer -= Time.deltaTime;
+        }
+
+        if (resetDashTimer <= 0)
+        {
+            canDash = true;
+        }
+        else
+        {
+            resetDashTimer -= Time.deltaTime;
         }
     }
 
@@ -62,13 +75,13 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEve
         if (isDashing)
         {
             motor.MovePosition(motor.position + (lookDirection.normalized * currentSpeed * Time.deltaTime));
-            DetermineAnimationCall();
         }
         else
         {
             motor.MovePosition(motor.position + (currentInput.normalized * currentSpeed * Time.deltaTime));
-            DetermineAnimationCall();
         }
+        DetermineAnimationCall();
+        DetermineAudioCall();
     }
 
     private void DetermineAnimationCall()
@@ -94,7 +107,6 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEve
         }
         else
         {
-            CallAudio?.Invoke("Walking", .1f);
             if (lookDirection.y > 0 && lookDirection.x < .5 && lookDirection.x > -.5)
             {
                 CallAnimationState?.Invoke("WalkingBackwards", 0);
@@ -110,6 +122,21 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEve
             if (lookDirection.x > 0 && lookDirection.y < .5 && lookDirection.y > -.5)
             {
                 CallAnimationState?.Invoke("WalkingRight", 0);
+            }
+        }
+    }
+
+    private void DetermineAudioCall()
+    {
+        if (isDashing)
+        {
+            CallAudio?.Invoke("Dash", 0f);
+        }
+        else
+        {
+            if (currentInput != Vector2.zero)
+            {
+                CallAudio?.Invoke("Walking", .1f);
             }
         }
     }
@@ -151,14 +178,20 @@ public class PlayerController : MonoBehaviour, ICallAnimateEvents, ICallAudioEve
             currentGrabItem.Release(currentInput);
             currentGrabItem = null;
             CallAnimationTrigger?.Invoke("", null);
+            CallAudio?.Invoke("Release", 0f);
         }
     }
 
     public void OnDash()
     {
-        Debug.Log("I am being called.");
-        timer = currentDashLength;
-        CallAnimationTrigger?.Invoke("", null);
+        if (canDash)
+        {
+            Debug.Log("I am being called.");
+            dashTimer = currentDashLength;
+            resetDashTimer = currentDashResetLength;
+            canDash = false;
+            CallAnimationTrigger?.Invoke("", null);
+        }
     }
 
     private void SubscribeToInput(InputController reference)

@@ -4,10 +4,11 @@ using UnityEngine;
 //This Script is not of my Creation and All credit goes to Brackeys!!! I do not Claim any of this as mine!!!
 
 [System.Serializable]
-public class Sound
-{
+public class Sound{
 
     public string name;
+
+    public AudioMixerGroup mixer;
 
     public AudioClip clip;
 

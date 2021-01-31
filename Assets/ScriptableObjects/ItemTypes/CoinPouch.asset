@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a18ae9602c97b840ae60535e9fd4766, type: 3}
+  m_Name: CoinPouch
+  m_EditorClassIdentifier: 
+  Name: CoinPouch
+  ID: 2
+  Mass: 50
+  Drag: 5
+  sprite: {fileID: -3513728768787513819, guid: 6e9e4f4bb6978b54199f3445b2bf459e, type: 3}
+  prefab: {fileID: 1200928448229001338, guid: 85e9af8d609cca64c81f61ba85d6435d, type: 3}
