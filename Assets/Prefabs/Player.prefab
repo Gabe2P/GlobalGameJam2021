@@ -144,6 +144,9 @@ GameObject:
   m_Component:
   - component: {fileID: 927004761292581604}
   - component: {fileID: 927004761292581603}
+  - component: {fileID: 6619607277106889720}
+  - component: {fileID: 5195350937752597519}
+  - component: {fileID: 6777241270431958324}
   m_Layer: 3
   m_Name: Model
   m_TagString: Untagged
@@ -217,3 +220,71 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6619607277106889720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927004761292581605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b11e79f5dd7e6a4a99509f064472a58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Walking
+    mixer: {fileID: 0}
+    clip: {fileID: 8300000, guid: 1db2eda92ba52bf46b68da53212e9720, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Dash
+    mixer: {fileID: 0}
+    clip: {fileID: 8300000, guid: 3bc5a6adb8cbeb348b76d3234becac65, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Grab
+    mixer: {fileID: 0}
+    clip: {fileID: 8300000, guid: 8db85cba03d138d44babbea89020c659, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  referenceObject: {fileID: 927004760860714826}
+--- !u!95 &5195350937752597519
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927004761292581605}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0cfb6d36302ae5049abb512a48807484, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6777241270431958324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927004761292581605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 235679c378dc3a74598e55cb25c1f20f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 5195350937752597519}
+  referenceObject: {fileID: 927004760860714826}

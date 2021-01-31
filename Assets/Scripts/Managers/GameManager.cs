@@ -13,6 +13,35 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private Text scoreTextBox;
 
+    public static GameManager _Instance;
+
+    public static GameManager Instance { get { return _Instance; } }
+
+
+
+    [SerializeField]
+    private int Score;
+
+    [SerializeField]
+    private int LoseState = 1;
+
+    [SerializeField]
+    private int MissedDeliveries = 0;
+
+
+
+    private void Awake()
+    {
+        if (_Instance != null && _Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _Instance = this;
+        }
+    }
+
     private void Update()
     {
         if (input == null)
@@ -20,6 +49,27 @@ public class GameManager : MonoBehaviour
             input = FindObjectOfType<InputController>();
             SubscribeToInput(input);
         }
+
+        if(MissedDeliveries >= LoseState)
+        {
+            GameOver(Score);
+        }
+
+    }
+
+
+    public void AddScore(int points)
+    {
+        Score += points;
+    }
+    public void RemoveScore(int points)
+    {
+        Score -= points;
+    }
+
+    public void MissedDelivery()
+    {
+        MissedDeliveries++;
     }
 
     public void GameOver(float score)
