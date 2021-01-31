@@ -15,6 +15,10 @@ public class InputController : MonoBehaviour
     public event Action OnDashButtonRelease;
     public event Action OnDashButtonHeld;
 
+    public event Action OnPauseButtonPress;
+    public event Action OnPauseButtonRelease;
+    public event Action OnPauseButtonHeld;
+
     public event Action<Vector2> OnMovementChanged;
 
     private Vector2 prevVector = Vector2.zero;
@@ -24,6 +28,7 @@ public class InputController : MonoBehaviour
     [SerializeField] private string YAxisString = "";
     [SerializeField] private string grabString = "";
     [SerializeField] private string dashString = "";
+    [SerializeField] private string pauseString = "";
 
     private void Update()
     {
@@ -51,6 +56,19 @@ public class InputController : MonoBehaviour
         if (Input.GetButton(dashString))
         {
             OnDashButtonHeld?.Invoke();
+        }
+
+        if (Input.GetButtonDown(pauseString))
+        {
+            OnPauseButtonPress?.Invoke();
+        }
+        if (Input.GetButtonUp(pauseString))
+        {
+            OnPauseButtonRelease?.Invoke();
+        }
+        if (Input.GetButton(pauseString))
+        {
+            OnPauseButtonHeld?.Invoke();
         }
 
         curVector = new Vector2(Input.GetAxisRaw(XAxisString), Input.GetAxisRaw(YAxisString));

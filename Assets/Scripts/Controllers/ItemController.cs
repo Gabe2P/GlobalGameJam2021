@@ -46,16 +46,13 @@ public class ItemController : MonoBehaviour, IGrabbable, ICallAnimateEvents, ICa
             motor.angularDrag = itemType.Drag;
         }
     }
-    private void Update()
-    {
-        if(Dropping)
-        {
-            DropBoi();
-        }
-    }
 
     private void Update()
     {
+        if (Dropping)
+        {
+            DropBoi();
+        }
         if (joint != null)
         {
             if (joint.connectedBody != null)

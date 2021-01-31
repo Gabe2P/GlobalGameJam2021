@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ICallAudioEvents
+public interface ICallParticleEvents
 {
-    public event Action<string, float> CallAudio;
+    public event Action<Vector2> CallParticles;
 }
