@@ -1,13 +1,18 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DeliverySpot : MonoBehaviour
 {
+    public event Action<object> OnDeliveryRequested;
+    public event Action<object> OnDeliveryCompleted;
+    public event Action<Vector2> OnUpdateDeliveryMarker;
+    [SerializeField] private GameObject markerPrefab = null;
+    [SerializeField] private Canvas point = null;
+
+
     [SerializeField]
     public GameObject RequestedItems;
-
-
 
     public bool ActiveDelivery = false;
 
@@ -23,42 +28,47 @@ public class DeliverySpot : MonoBehaviour
 
     GameObject DeliveredItem;
 
-    [SerializeField]
-    GameObject SpotLight;
-
-    [SerializeField]
-    GameObject Hand;
-    GameObject ActiveHand;
-
-
-
     bool FDelivering = false;
-    bool HandMoving = false;
 
+    private void MakeMarker()
+    {
+        RaycastHit2D hitInfo = Physics2D.Raycast(this.transform.position, this.transform.position - point.transform.position);
+        if (hitInfo)
+        {
+            Debug.LogError(hitInfo.point);
+            GameObject clone = Instantiate(markerPrefab, hitInfo.point, Quaternion.identity, point.transform);
+            DeliveryRequestMarker marker = clone.GetComponent<DeliveryRequestMarker>();
+            if (marker != null)
+            {
+                marker.deliverySpot = this;
+            }
+        }
+    }
 
-
-
+    private void UpdateMarker()
+    {
+        RaycastHit2D hitInfo = Physics2D.Raycast(this.transform.position, this.transform.position - point.transform.position);
+        if (hitInfo)
+        {
+            OnUpdateDeliveryMarker?.Invoke(hitInfo.point);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        RequestManager.Instance.AvailableDeliveryPoints.Add(this);
-        SpotLight.SetActive(false);
+        //RequestManager.Instance.AvailableDeliveryPoints.Add(this);
+        MakeMarker();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(HandMoving)
-        {
-            MoveHand();
-        }
         if(FDelivering)
         {
             DeliverItem();
         }
-        
-        
+        UpdateMarker();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -84,51 +94,23 @@ public class DeliverySpot : MonoBehaviour
             DeliveredItem.GetComponent<ItemController>().Release(new Vector2(0, 0));
             DeliveredItem.GetComponent<ItemController>().enabled = false;
             DeliveredItem.GetComponentInChildren<PolygonCollider2D>().enabled = false;
-            HandMoving = true;
-
-            if (ActiveHand == null)
-            {
-                ActiveHand = Instantiate(Hand);
-                ActiveHand.transform.position = new Vector3(DeliveredItem.transform.position.x, DeliveredItem.transform.position.y + AscensionHeight, DeliveredItem.transform.position.z -1);
-            }
-
-            
-
-
-        }
-
-
-    }
-
-    private void MoveHand()
-    {
-        
-
-        ActiveHand.transform.position -= new Vector3(0, AscensionSpeed * Time.deltaTime, 0);
-
-        if(ActiveHand.transform.position.y <= DeliveredItem.transform.position.y)
-        {
-            DeliveredItem.transform.parent = ActiveHand.transform;
-            //DeliveredItem.transform.localPosition = new Vector3(0, 0, 1);
-            HandMoving = false;
             FDelivering = true;
-            ActiveHand.GetComponentInChildren<Animator>().SetTrigger("CloseHand");
+
+
         }
+
 
     }
 
     public void DeliverItem()
     {
-        ActiveHand.transform.position += new Vector3(0, AscensionSpeed * Time.deltaTime, 0);
+        DeliveredItem.transform.position = new Vector3(DeliveredItem.transform.position.x, DeliveredItem.transform.position.y + AscensionSpeed * Time.deltaTime, DeliveredItem.transform.position.z);
 
-        if (ActiveHand.transform.position.y >= transform.position.y + AscensionHeight)
+        if (DeliveredItem.transform.position.y >= transform.position.y + AscensionHeight)
         {
             FDelivering = false;
             RequestedItems= null;
             Destroy(DeliveredItem);
-            Destroy(ActiveHand);
-            SpotLight.SetActive(false);
-
             CompleteDelivery();
         }
         if (DeliveredItem != null)
@@ -142,17 +124,16 @@ public class DeliverySpot : MonoBehaviour
     public void StartDelivery(GameObject items)
     {
         ActiveDelivery = true;
+        OnDeliveryRequested?.Invoke(this.gameObject);
         RequestedItems = items;
-        SpotLight.SetActive(true);
 
     }
 
     private void CompleteDelivery()
     {
-        
-            RequestManager.Instance.CompleteDelivery(this);
-            ActiveDelivery = false;
-        
+        RequestManager.Instance.CompleteDelivery(this);
+        ActiveDelivery = false;
+        OnDeliveryCompleted?.Invoke(this.gameObject);
     }
 
         
