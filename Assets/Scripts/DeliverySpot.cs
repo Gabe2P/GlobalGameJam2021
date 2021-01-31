@@ -1,13 +1,18 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DeliverySpot : MonoBehaviour
 {
+    public event Action<object> OnDeliveryRequested;
+    public event Action<object> OnDeliveryCompleted;
+    public event Action<Vector2> OnUpdateDeliveryMarker;
+    [SerializeField] private GameObject markerPrefab = null;
+    [SerializeField] private Canvas point = null;
+
+
     [SerializeField]
     public GameObject RequestedItems;
-
-
 
     public bool ActiveDelivery = false;
 
@@ -23,18 +28,37 @@ public class DeliverySpot : MonoBehaviour
 
     GameObject DeliveredItem;
 
-
-
     bool FDelivering = false;
 
+    private void MakeMarker()
+    {
+        RaycastHit2D hitInfo = Physics2D.Raycast(this.transform.position, this.transform.position - point.transform.position);
+        if (hitInfo)
+        {
+            Debug.LogError(hitInfo.point);
+            GameObject clone = Instantiate(markerPrefab, hitInfo.point, Quaternion.identity, point.transform);
+            DeliveryRequestMarker marker = clone.GetComponent<DeliveryRequestMarker>();
+            if (marker != null)
+            {
+                marker.deliverySpot = this;
+            }
+        }
+    }
 
-
-
+    private void UpdateMarker()
+    {
+        RaycastHit2D hitInfo = Physics2D.Raycast(this.transform.position, this.transform.position - point.transform.position);
+        if (hitInfo)
+        {
+            OnUpdateDeliveryMarker?.Invoke(hitInfo.point);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        RequestManager.Instance.AvailableDeliveryPoints.Add(this);
+        //RequestManager.Instance.AvailableDeliveryPoints.Add(this);
+        MakeMarker();
     }
 
     // Update is called once per frame
@@ -44,7 +68,7 @@ public class DeliverySpot : MonoBehaviour
         {
             DeliverItem();
         }
-        
+        UpdateMarker();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -100,16 +124,16 @@ public class DeliverySpot : MonoBehaviour
     public void StartDelivery(GameObject items)
     {
         ActiveDelivery = true;
+        OnDeliveryRequested?.Invoke(this.gameObject);
         RequestedItems = items;
 
     }
 
     private void CompleteDelivery()
     {
-        
-            RequestManager.Instance.CompleteDelivery(this);
-            ActiveDelivery = false;
-        
+        RequestManager.Instance.CompleteDelivery(this);
+        ActiveDelivery = false;
+        OnDeliveryCompleted?.Invoke(this.gameObject);
     }
 
         
