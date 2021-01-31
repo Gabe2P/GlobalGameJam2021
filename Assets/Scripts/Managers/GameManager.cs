@@ -1,5 +1,7 @@
 //Written By Gabriel Tupy 1-30-2021
 
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
