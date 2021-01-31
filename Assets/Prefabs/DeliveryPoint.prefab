@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RequestedItems: {fileID: 0}
   ActiveDelivery: 0
-  TimeToDeliverItems: 0
+  TimeToDeliverItems: 40
   AscensionSpeed: 10
   AscensionHeight: 30
   SpotLight: {fileID: 2867493190519612249}
